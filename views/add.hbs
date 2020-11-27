@@ -1,0 +1,35 @@
+<h1>Добавить новый абонемент</h1>
+
+<form action="/add" method="POST">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required min="5">
+    <label for="title">Название абонемента</label>
+    <span class="helper-text" data-error="Введите название"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="price" name="price" type="number" class="validate" required min="1">
+    <label for="price">Цена курса</label>
+    <span class="helper-text" data-error="Введите цену"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="option1" name="option1" type="text" class="validate" required min="5">
+    <label for="option1">Опция 1</label>
+    <span class="helper-text" data-error="Введите опцию 1"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="option2" name="option2" type="text" class="validate" required min="5">
+    <label for="option2">Опция 2</label>
+    <span class="helper-text" data-error="Введите опцию 2"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="option3" name="option3" type="text" class="validate" required min="5">
+    <label for="option3">Опция 3</label>
+    <span class="helper-text" data-error="Введите опцию 3"></span>
+  </div>
+
+  <button class="btn">Добавить абонемент</button>
+</form>

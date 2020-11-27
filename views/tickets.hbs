@@ -1,0 +1,51 @@
+<h1>Абонементы</h1>
+
+  <form id="custom-form-buy-ticket" action="/card/add" method="POST">
+  </form>
+
+{{#if tickets.length}}
+
+{{#each tickets}}
+<div class="ticket-row">
+  <div class="ticket">
+      <div class="ticket__title">
+        {{title}}
+      </div>
+  
+      <div class="ticket__possibilities"> 
+        <ul>
+          <li>
+            {{option1}}
+          </li>
+          <li>
+            {{option2}}
+          </li>
+          <li>
+            {{option3}}
+          </li>
+        </ul>
+      </div>
+
+      <div class="price">{{price}}</div>
+    
+      <div class="ticket__actions">
+
+        <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{id}}">
+          приобрести
+        </button>
+
+        {{!-- <button class="edit">
+          <a href="/tickets/{{id}}/edit?allow=true">редактировать</a>
+        </button> --}}
+
+        <div class="edit">
+          <a href="/tickets/{{id}}/edit?allow=true">редактировать</a>
+        </div>
+      </div>
+  </div>
+</div>
+{{/each}}
+
+{{else}}
+<p>Абонементов пока нет</p>
+{{/if}}

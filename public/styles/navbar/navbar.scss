@@ -1,0 +1,140 @@
+#top-navbar {
+  background-color: rgba(1, 1, 1, 0.8);
+  backdrop-filter: blur(5px);
+  position: sticky;
+  z-index: 110;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+
+  a:hover {
+    color: #F3AEAE;
+  }
+
+  #navbar__menu-toggler {
+    margin-left: 20px;
+
+    @media (min-width: 1200px) {
+      display: none;
+    }
+  }
+
+  #top-navbar__collapse {
+    background: transparent;
+    list-style-type: none;
+    padding: 0;
+    top: 0;
+    margin: 0 auto;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+
+    li a {
+      color: white;
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .dropdown {
+      position: relative;
+
+      &:hover {
+        .dropdown__content {
+          display: block;
+        }
+      }
+    }
+
+    .dropdown__content {
+      background-color: rgba(1, 1, 1, 0.8);
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      display: none;
+      min-width: 200px;
+      position: absolute;
+      padding: 10px;
+      margin-top: 2px;
+
+      a {
+        color: white;
+        font-size: 1.2rem;
+      }
+    }
+
+    // It's works until 1200px
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+}
+
+// SIDEBAR
+
+#sm-container-sidebar {
+  display: block;
+  background-color: rgba(24, 25, 29, 0.95);
+  box-shadow: 3px 0px 10px 2px rgb(9, 9, 10);
+  position: fixed;
+  top: 0;
+  left: -35vw;
+  z-index: 1000;
+  width: 35vw;
+  height: 100vh;
+
+  transition: 0.3s;
+  animation-timing-function: linear;
+
+  @media (max-width: 576px) {
+    left: -70vw;
+    width: 70vw;
+  }
+
+  #sm-sidebar {
+    display: block;
+    background-color: transparent;
+    height: 100vh;
+    width: auto;
+    box-sizing: border-box;
+    padding: 10px;
+    top: 0;
+
+    #sidebar__items {
+      float: left;
+      font-size: 2rem;
+      padding-left: 3rem;
+      padding-top: 1rem;
+      list-style: none;;
+
+      @media (max-width: 992px) {
+        padding-left: 1rem;
+
+        @media (max-width: 768px) {
+          padding-left: 1.25rem;
+          font-size: 1.5rem;
+        }
+      }
+
+
+      li {
+        margin-top: 3rem;
+      }
+
+      li a {
+        color: white;
+        text-decoration: none;
+        
+      }
+    }
+  }
+
+  #navbar__menu-close {
+    float: right;
+    z-index: 1001;
+  }
+
+}

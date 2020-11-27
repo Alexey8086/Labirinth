@@ -1,0 +1,118 @@
+footer {
+  width: 100%;
+  min-height: 350px;
+  background-color: black;
+  padding-top: 70px;
+  margin-top: 0;
+
+  .footer__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+
+      @media (max-width: 576px){
+        font-size: 1rem;
+      }
+    }
+
+    #contacts {
+      @media (max-width: 768px) {
+        margin-top: 50px;
+        
+        @media (max-width: 576px) {
+          margin-top: 20px;
+        }
+      }
+
+      h1 {
+        text-align: left;
+
+        span {
+          @media (max-width: 768px) {
+            display: none;
+          }
+        }
+
+        @media (max-width: 768px) {
+          text-align: center;
+        }
+      }
+
+      &__content {
+        margin: 20px 0 20px 0;
+      }
+    }
+  }
+
+  .social-media {
+    margin-right: 200px;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
+
+    .icons {
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 768px) {
+        flex-direction: row;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      .icon {
+        display: flex;
+        flex-direction: row;
+        row-gap: 10px;
+
+        h1 {
+          padding-top: 2px;
+        }
+      }
+
+      #vk {
+        width: 32px;
+        height: 32px;
+        background-image: url("/img/Footer/vk.png");
+        background-repeat: no-repeat;
+        background-position: center;
+
+      }
+
+      #instagram {
+        width: 32px;
+        height: 32px;
+        background: url("/img/Footer/instagram.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      #youtube {
+        width: 32px;
+        height: 32px;
+        background: url("/img/Footer/youtube.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+
+  h1 {
+    color: #A5A5A5;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: center;
+  }
+}

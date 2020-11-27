@@ -1,0 +1,77 @@
+<nav id="top-navbar">
+
+    <div id="navbar__menu-toggler"> <img width="32" height="32" src="/img/icons/menu.png" alt="иконка меню"> </div>
+
+    <ul id="top-navbar__collapse">
+        {{#if isCover}}
+        <li><a href="/" style="color: #F3AEAE">ГЛАВНАЯ</a></li>
+        {{else}}
+        <li><a href="/">ГЛАВНАЯ</a></li>
+        {{/if}}
+
+        {{#if isTickets}}
+        <li><a href="/tickets" style="color: #F3AEAE">АБОНЕМЕНТЫ</a></li>
+        {{else}}
+        <li><a href="/tickets">АБОНЕМЕНТЫ</a></li>
+        {{/if}}
+
+        {{#if isAuth}}
+        <li class="dropdown">
+            <a href="#" style="color: #F3AEAE">ЛИЧНЫЙ КАБИНЕТ</a>
+
+            <div class="dropdown__content">
+                <a href="/user-auth">пользователь</a>
+                <a href="#">администратор</a>
+            </div>
+        </li>
+        {{else}}
+        <li class="dropdown">
+            <a href="#">ЛИЧНЫЙ КАБИНЕТ</a>
+
+            <div class="dropdown__content">
+                <a href="/user-auth">пользователь</a>
+                <a href="#">администратор</a>
+            </div>
+        </li>
+        {{/if}}
+
+        {{#if isAbout}}
+        <li><a href="/about" style="color: #F3AEAE">О КОМПАНИИ</a></li>
+        {{else}}
+        <li><a href="/about">О КОМПАНИИ</a></li>
+        {{/if}}
+    </ul>
+</nav>
+
+
+<div id="sm-container-sidebar">
+    <div id="sm-sidebar">
+        <img id="navbar__menu-close" width="32" height="32" src="/img/icons/close.png" alt="иконка меню">
+
+        <ul id="sidebar__items">
+            {{#if isCover}}
+                <li><a href="/" style="color: #F3AEAE">ГЛАВНАЯ</a></li>
+            {{else}}
+                <li><a href="/">ГЛАВНАЯ</a></li>
+            {{/if}}
+
+            {{#if isTickets}}
+                <li><a href="/tickets" style="color: #F3AEAE">АБОНЕМЕНТЫ</a></li>
+            {{else}}
+                <li><a href="/tickets">АБОНЕМЕНТЫ</a></li>
+            {{/if}}
+
+            {{#if isAuth}}
+                <li><a href="/user-auth" style="color: #F3AEAE">ЛИЧНЫЙ КАБИНЕТ</a></li>
+            {{else}}
+                <li><a href="/user-auth">ЛИЧНЫЙ КАБИНЕТ</a></li>
+            {{/if}}
+
+            {{#if isAbout}}
+                <li><a href="/about" style="color: #F3AEAE">О КОМПАНИИ</a></li>
+            {{else}}
+                <li><a href="/about">О КОМПАНИИ</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

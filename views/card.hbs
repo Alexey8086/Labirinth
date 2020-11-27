@@ -1,0 +1,52 @@
+
+<div id="card">
+  {{#if tickets.length}}
+  <div id="sat-card-container">
+    
+    <div id="sat-div-card-title">
+      <h1 id="sat-card-title">Корзина</h1>
+    </div>
+
+    <div id="head-title">
+      <div class="head-title-item">
+          Наименование <span>абонемента</span>
+      </div>
+      <div class="head-title-item">
+          Количество
+      </div>
+      <div class="head-title-item">
+          Цена
+      </div>
+      <div class="head-title-item">
+          Действия
+      </div>
+    </div>
+    
+    <hr id="sat-horizontal-line" width="100%" heigth="2px" style="background-color: rgb(56, 55, 55)">
+
+        {{#each tickets}}
+          <div class="item">
+            <div class="item-of-inside title">{{title}}</div>
+            <div class="item-of-inside tickets_count">{{count}}</div>
+            <div class="item-of-inside price">{{price}}</div>
+            <button class="item-delete-btn sat-js-remove" data-id="{{id}}">Удалить</button>
+          </div>
+        {{/each}}
+
+
+      <strong style="margin-top: 20px; width: 100%">Итог:
+        <b> <span class="finaly-card-price price">{{price}}</span> </b>
+      </strong>
+
+  </div>
+  {{else}}
+    <div id="sat-card-container">
+      
+      <div id="sat-div-card-title">
+        <h1 id="sat-card-title">Корзина</h1>
+      </div>
+
+      <p id="sat-card-is-empty" style="margin-top: 200px;">Корзина пуста</p>
+    </div>
+  {{/if}}
+</div>
