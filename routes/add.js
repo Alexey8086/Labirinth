@@ -11,11 +11,21 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const ticket = new Ticket(req.body.title, req.body.price, req.body.option1, req.body.option2, req.body.option3)
+  const ticket = new Ticket({
+    title: req.body.title,
+    price: req.body.price,
+    option1: req.body.option1,
+    option2: req.body.option2,
+    option3: req.body.option3,
+    userId: req.user._id
+  })
 
-  await ticket.save()
-
-  res.redirect('/tickets')
+  try {
+    await ticket.save()
+    res.redirect('/tickets')
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 module.exports = router

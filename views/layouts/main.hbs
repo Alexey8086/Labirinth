@@ -11,7 +11,10 @@
 <body>
   {{> navbar}}
 
-  {{{ body }}}
+  <div style="min-height: calc(100vh - 350px);" class="main-container">
+    {{{ body }}}
+  </div>
+
   
   {{> footer}}
   <script src="/bundle.js"></script>

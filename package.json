@@ -16,11 +16,13 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
     "firebase": "^7.19.1",
+    "handlebars-helpers": "^0.10.0",
     "load-google-maps-api": "^2.0.2",
     "mongoose": "^5.10.14",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
+    "handlebars": "^4.5.0",
     "nodemon": "^2.0.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"

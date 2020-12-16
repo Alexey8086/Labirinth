@@ -31,6 +31,11 @@
     <span class="helper-text" data-error="Введите опцию 3"></span>
   </div>
 
-  <input type="hidden" name="id" value="{{ticket.id}}">
-  <button class="Edit-btn">Сохранить</button>
+  <input type="hidden" name="id" value="{{ticket._id}}">
+  <button type="submit"class="Edit-btn">Сохранить</button>
+</form>
+
+<form action="/tickets/remove" method="POST">
+  <input type="hidden" name="id" value="{{ticket._id}}">
+  <button type="submit" class="Delete-btn">Удалить абонемент</button>
 </form>

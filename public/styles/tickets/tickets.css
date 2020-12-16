@@ -159,7 +159,6 @@ footer {
   min-height: 350px;
   background-color: black;
   padding-top: 70px;
-  margin-top: 0;
 }
 
 footer .footer__container {
@@ -326,13 +325,13 @@ body {
   padding: 0;
 }
 
-body > h1 {
+.main-container > h1, p {
   text-align: center;
   margin: 50px 0 50px 0;
 }
 
 @media (max-width: 576px) {
-  body > h1 {
+  .main-container > h1, p {
     margin: 25px 0 25px 0;
   }
 }

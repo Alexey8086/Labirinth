@@ -159,7 +159,6 @@ footer {
   min-height: 350px;
   background-color: black;
   padding-top: 70px;
-  margin-top: 0;
 }
 
 footer .footer__container {
@@ -337,10 +336,6 @@ footer h1 {
 body {
   background-color: #EDEEF0;
   font-size: 1.5rem;
-}
-
-footer {
-  margin-top: calc(100vh - 350px);
 }
 
 @media (max-width: 1200px) and (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
