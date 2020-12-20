@@ -1,5 +1,4 @@
 const path = require('path');
-const { NoEmitOnErrorsPlugin } = require('webpack');
 
 module.exports = {
   mode: 'production',

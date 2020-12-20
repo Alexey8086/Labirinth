@@ -5,6 +5,7 @@ import $ from './plugins/modal'
 import googleMap from './plugins/google-map'
 import cardRemove from './plugins/card-remove'
 import toCurrency from './plugins/toCurrency'
+import dateFormat from './plugins/dateFormat'
 
 import firebase from './firebase/firebase'
 const container = document.querySelector('.slider-container')
@@ -86,4 +87,12 @@ if (document.getElementById('price')) {
   let price_input = document.getElementById('price')
 
   price_input.value = toCurrency(price_input.value)
+}
+
+// форматирование даты
+if (document.querySelectorAll('.date')) {
+  document.querySelectorAll('.date')
+    .forEach(node => {
+      node.textContent = dateFormat(node.textContent)
+    })
 }

@@ -13,6 +13,7 @@ const addRoutes = require('./routes/add')
 const ticketsRoutes = require('./routes/tickets')
 const aboutRoutes = require('./routes/about')
 const userAuthRoutes = require('./routes/user-auth')
+const ordersRoutes = require('./routes/orders')
 const PORT = process.env.PORT || 8000
 
 // Подключение модели пользователя
@@ -22,7 +23,11 @@ const app = express()
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
-  extname: 'hbs'
+  extname: 'hbs',
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  }
 })
 
 app.engine('hbs', hbs.engine)
@@ -49,6 +54,7 @@ app.use('/tickets', ticketsRoutes)
 app.use('/about', aboutRoutes)
 app.use('/user-auth', userAuthRoutes)
 app.use('/card', cardRoutes)
+app.use('/orders', ordersRoutes)
 
 async function start () {
   try {

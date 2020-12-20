@@ -6,7 +6,6 @@ router.get('/', async (req, res) => {
   const tickets = await Ticket.find()
     .lean()
     .populate('userId', 'email name')
-  console.log(tickets)
 
   res.render('tickets', {
     style: '/tickets/tickets.css',

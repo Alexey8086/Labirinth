@@ -27,6 +27,7 @@ const userSchema = new Schema({
   }
 })
 
+// Добавление продукта в базу данных
 userSchema.methods.addToCard = function(ticket) {
   // клонирование массива items из поля card из userSchema
   const items = [...this.card.items]
@@ -48,6 +49,31 @@ userSchema.methods.addToCard = function(ticket) {
   this.card = {items}
 
   // возвращаем результат сохранения обновленного состояния корзины
+  return this.save()
+}
+
+// Удаление продукта из базы данных
+userSchema.methods.removeFromCard = function (id) {
+  let items = [...this.card.items]
+  const idx = items.findIndex(i => {
+    return i.ticketId.toString() === id.toString()
+  })
+
+  console.log("Log from user, Idx= ", idx)
+
+  if (items[idx].count === 1) {
+    items = items.filter(i => i.ticketId.toString() !== id.toString())
+  } else {
+    items[idx].count--
+  }
+
+  this.card = {items}
+  return this.save()
+}
+
+// Очистка корзины после нажатия на кнопку "оформить заказ"
+userSchema.methods.clearCard = function() {
+  this.card = {items: []}
   return this.save()
 }
 

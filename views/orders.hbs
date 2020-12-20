@@ -1,0 +1,32 @@
+<h1 class="orders-title">Мои заказы</h1>
+
+{{#if orders.length}}
+  <div class="sat-order-container">
+    {{#each orders}}
+      <div class="order-item">
+        <span style="color: #ebb121">
+          заказ:
+          <small>{{_id}}</small>
+        </span>
+        <span>Дата: <span class="order-data date">{{date}}</span> </span>
+        <span>Имя: <span class="order-data">{{user.userId.name}} ({{user.userId.email}})</span> </span>
+        <ol style="padding-left: 22px;">
+          {{#each tickets}}
+            <li>
+              <span class="order-data">{{ticket.title}} (x<strong>{{count}}</strong>)</span>
+            </li>
+          {{/each}}
+        </ol>
+        <hr style="margin: 20px 0 15px 0;">
+          <div class="order-price">
+            <span>Цена:</span>
+            <b><span class="price">{{price}}</span></b>
+          </div>
+      </div>
+    {{/each}}
+  </div>
+
+
+{{else}}
+  <p>Заказов пока нет</p>
+{{/if}}

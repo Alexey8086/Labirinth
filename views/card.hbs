@@ -38,6 +38,9 @@
         <b> <span class="finaly-card-price price">{{price}}</span> </b>
       </strong>
 
+    <form id="order-form" action="/orders" method="POST">
+      <button type="submit" class="order-btn">Оформить заказ</button>
+    </form>
   </div>
   {{else}}
     <div id="sat-card-container">
