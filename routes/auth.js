@@ -1,12 +1,12 @@
 const {Router} = require('express')
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/login', async (req, res) => {
 
-  res.render('auth', {
-    style: '/auth/user-auth.css',
+  res.render('auth/login', {
+    style: '/auth/auth.css',
     title: 'Вход в личный кабинет',
-    isAuth: true,
+    isLogin: true,
   })
 
 })

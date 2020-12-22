@@ -12,7 +12,7 @@ const cardRoutes = require('./routes/card')
 const addRoutes = require('./routes/add')
 const ticketsRoutes = require('./routes/tickets')
 const aboutRoutes = require('./routes/about')
-const userAuthRoutes = require('./routes/user-auth')
+const authRoutes = require('./routes/auth')
 const ordersRoutes = require('./routes/orders')
 const PORT = process.env.PORT || 8000
 
@@ -52,7 +52,7 @@ app.use('/', coverRoutes)
 app.use('/add', addRoutes)
 app.use('/tickets', ticketsRoutes)
 app.use('/about', aboutRoutes)
-app.use('/user-auth', userAuthRoutes)
+app.use('/auth', authRoutes)
 app.use('/card', cardRoutes)
 app.use('/orders', ordersRoutes)
 

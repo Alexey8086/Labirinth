@@ -15,23 +15,23 @@
         <li><a href="/tickets">АБОНЕМЕНТЫ</a></li>
         {{/if}}
 
-        {{#if isAuth}}
+        {{#if isLogin}}
         <li class="dropdown">
-            <a href="#" style="color: #F3AEAE">ЛИЧНЫЙ КАБИНЕТ</a>
+            <a href="/auth/login#login" style="color: #F3AEAE">ЛИЧНЫЙ КАБИНЕТ</a>
 
-            <div class="dropdown__content">
-                <a href="/user-auth">пользователь</a>
+            {{!-- <div class="dropdown__content">
+                <a href="/auth">пользователь</a>
                 <a href="#">администратор</a>
-            </div>
+            </div> --}}
         </li>
         {{else}}
         <li class="dropdown">
-            <a href="#">ЛИЧНЫЙ КАБИНЕТ</a>
+            <a href="/auth/login#login">ЛИЧНЫЙ КАБИНЕТ</a>
 
-            <div class="dropdown__content">
-                <a href="/user-auth">пользователь</a>
+            {{!-- <div class="dropdown__content">
+                <a href="/auth">пользователь</a>
                 <a href="#">администратор</a>
-            </div>
+            </div> --}}
         </li>
         {{/if}}
 
@@ -61,10 +61,10 @@
                 <li><a href="/tickets">АБОНЕМЕНТЫ</a></li>
             {{/if}}
 
-            {{#if isAuth}}
-                <li><a href="/user-auth" style="color: #F3AEAE">ЛИЧНЫЙ КАБИНЕТ</a></li>
+            {{#if isLogin}}
+                <li><a href="/auth" style="color: #F3AEAE">ЛИЧНЫЙ КАБИНЕТ</a></li>
             {{else}}
-                <li><a href="/user-auth">ЛИЧНЫЙ КАБИНЕТ</a></li>
+                <li><a href="/auth">ЛИЧНЫЙ КАБИНЕТ</a></li>
             {{/if}}
 
             {{#if isAbout}}

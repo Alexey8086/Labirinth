@@ -1,0 +1,35 @@
+// сброс всех стилей данного тега к начальным значениям
+nav {
+  all: initial;
+}
+
+@import "../navbar/navbar.scss";
+@import "../footer/footer.scss";
+
+body {
+  background: whitesmoke;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.auth {
+  padding-top: 2rem;
+
+  .row {
+    width: 70vw;
+
+    .auth-btn {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      text-align: center;
+    }
+  }
+}
