@@ -1,6 +1,10 @@
 const express = require('express')
 const path = require('path')
+const surf = require('csurf')
+const flash = require('connect-flash')
 const exphbs = require('express-handlebars')
+const session = require('express-session')
+const MongoStore = require('connect-mongodb-session')(session)
 const mongoose = require('mongoose')
 const db_username = 'All-exe'
 const db_password = 'h0ouIA*L'
@@ -15,9 +19,8 @@ const aboutRoutes = require('./routes/about')
 const authRoutes = require('./routes/auth')
 const ordersRoutes = require('./routes/orders')
 const PORT = process.env.PORT || 8000
-
-// Подключение модели пользователя
-const userSchema = require('./models/user')
+const varMiddleware = require('./middleware/variables')
+const userMiddleware = require('./middleware/user')
 
 const app = express()
 
@@ -30,23 +33,29 @@ const hbs = exphbs.create({
   }
 })
 
+const store = new MongoStore({
+  collection: 'sessions',
+  uri: db_url
+})
+
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
-
-app.use(async (req, res, next) => {
-  try {
-    const user = await userSchema.findById('5fda0563d8cca61eb476b5c8')
-    req.user = user
-    next()
-  } catch (error) {
-    console.log(error)
-  }
-})
-
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
+
+// конфигурация функции сессии, которая является middleware
+app.use(session({
+  secret: 'secret-value',
+  resave: false,
+  saveUninitialized: false,
+  store: store
+}))
+app.use(surf())
+app.use(flash())
+app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use('/', coverRoutes)
 app.use('/add', addRoutes)
@@ -63,17 +72,6 @@ async function start () {
       useNewUrlParser: true,
       useFindAndModify: false
     })
-
-    const candidate = await userSchema.findOne()
-    if (!candidate) {
-      const user = new userSchema({
-        email: 'test@gmail.ru',
-        name: 'Alexey',
-        card: {items: []}
-      })
-
-      await user.save()
-    }
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)

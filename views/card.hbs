@@ -29,7 +29,13 @@
             <div class="item-of-inside title">{{title}}</div>
             <div class="item-of-inside tickets_count">{{count}}</div>
             <div class="item-of-inside price">{{price}}</div>
-            <button class="item-delete-btn sat-js-remove" data-id="{{id}}">Удалить</button>
+            <button
+              class="item-delete-btn sat-js-remove"
+              data-id="{{id}}"
+              data-csrf="{{@root.surf}}"
+            >
+            Удалить
+            </button>
           </div>
         {{/each}}
 
@@ -39,6 +45,7 @@
       </strong>
 
     <form id="order-form" action="/orders" method="POST">
+      <input type="hidden" name="_csrf" value="{{surf}}">
       <button type="submit" class="order-btn">Оформить заказ</button>
     </form>
   </div>

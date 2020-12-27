@@ -32,10 +32,15 @@
   </div>
 
   <input type="hidden" name="id" value="{{ticket._id}}">
+
+  <input type="hidden" name="_csrf" value="{{surf}}">
   <button type="submit"class="Edit-btn">Сохранить</button>
 </form>
 
 <form action="/tickets/remove" method="POST">
   <input type="hidden" name="id" value="{{ticket._id}}">
+
+  <input type="hidden" name="_csrf" value="{{surf}}">
+
   <button type="submit" class="Delete-btn">Удалить абонемент</button>
 </form>

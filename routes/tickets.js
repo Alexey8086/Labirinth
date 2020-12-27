@@ -1,5 +1,7 @@
 const {Router} = require('express')
 const Ticket = require('../models/ticket')
+  //middleware, который закрывает доступ к странице для неавторизованных пользователей
+const auth = require('../middleware/auth')
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -15,7 +17,7 @@ router.get('/', async (req, res) => {
   })
 })
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', auth, async (req, res) => {
   if (!req.query.allow) {
     return res.redirect('/')
   }
@@ -30,7 +32,7 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 // обновление редактируемого абонемента в бд
-router.post('/edit', async (req, res) => {
+router.post('/edit', auth, async (req, res) => {
   const {id} = req.body
   delete req.body.id
   // приведение цены из клиентской формы к валидному виду
@@ -44,7 +46,7 @@ router.post('/edit', async (req, res) => {
 })
 
 // удаление редактируемого абонемента в бд
-router.post('/remove', async (req, res) => {
+router.post('/remove', auth, async (req, res) => {
   const {id} = req.body
   try {
     await Ticket.deleteOne({_id: id})

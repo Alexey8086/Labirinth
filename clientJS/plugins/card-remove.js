@@ -5,10 +5,14 @@ const cardRemove = ($card) => {
     $card.addEventListener('click', event => {
       if (event.target.classList.contains('sat-js-remove')) {
         var id = event.target.dataset.id
+        var csrf = event.target.dataset.csrf
       }
       
       fetch('/card/remove/' + id, {
-        method: 'delete'
+        method: 'delete',
+        headers: {
+          'X-XSRF-TOKEN': csrf
+        }
       })
       .then(res => res.json())
       .then(card => {
@@ -19,7 +23,7 @@ const cardRemove = ($card) => {
                 <div style="width: 40%" class="item-of-inside">${t.title}</div>
                 <div class="item-of-inside">${t.count}</div>
                 <div class="item-of-inside price">${t.price}</div>
-                <button class="item-delete-btn sat-js-remove" data-id="${t.id}">Удалить</button>
+                <button class="item-delete-btn sat-js-remove" data-id="${t.id}" data-csrf="${csrf}">Удалить</button>
               </div>
             `
           }).join('')

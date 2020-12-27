@@ -1,8 +1,10 @@
 const {Router} = require('express')
 const Ticket = require('../models/ticket')
+  //middleware, который закрывает доступ к странице для неавторизованных пользователей
+const auth = require('../middleware/auth')
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   res.render('add', {
     style: '/add/add.css',
     title: 'Добавить абонемент',
@@ -10,7 +12,7 @@ router.get('/', (req, res) => {
   })
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const ticket = new Ticket({
     title: req.body.title,
     price: req.body.price,

@@ -36,9 +36,13 @@
         {{/if}}
 
         {{#if isAbout}}
-        <li><a href="/about" style="color: #F3AEAE">О КОМПАНИИ</a></li>
+            <li><a href="/about" style="color: #F3AEAE">О КОМПАНИИ</a></li>
         {{else}}
-        <li><a href="/about">О КОМПАНИИ</a></li>
+            <li><a href="/about">О КОМПАНИИ</a></li>
+        {{/if}}
+
+        {{#if isAuth}}
+            <li><a href="/auth/logout">ВЫЙТИ</a></li>
         {{/if}}
     </ul>
 </nav>
@@ -71,6 +75,10 @@
                 <li><a href="/about" style="color: #F3AEAE">О КОМПАНИИ</a></li>
             {{else}}
                 <li><a href="/about">О КОМПАНИИ</a></li>
+            {{/if}}
+
+            {{#if isAuth}}
+                <li><a href="/auth/logout" style="color: #dd5050">ВЫЙТИ</a></li>
             {{/if}}
         </ul>
     </div>

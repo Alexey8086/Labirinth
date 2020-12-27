@@ -1,6 +1,7 @@
 <h1>Абонементы</h1>
 
   <form id="custom-form-buy-ticket" action="/card/add" method="POST">
+    <input type="hidden" name="_csrf" value="{{surf}}">
   </form>
 
 {{#if tickets.length}}
@@ -30,17 +31,22 @@
     
       <div class="ticket__actions">
 
-        <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{_id}}">
-          приобрести
-        </button>
+        {{#if @root.isAuth}}
+          <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{_id}}">
+            приобрести
+          </button>
+        {{else}}
+          <button type="button" class="buy" name="id" value="{{_id}}">
+            <a href="/auth/login#login">приобрести</a>
+          </button>
+        {{/if}}
 
-        {{!-- <button class="edit">
-          <a href="/tickets/{{id}}/edit?allow=true">редактировать</a>
-        </button> --}}
+        {{#if @root.isAuth}}
+          <div class="edit">
+            <a href="/tickets/{{_id}}/edit?allow=true">редактировать</a>
+          </div>
+        {{/if}}
 
-        <div class="edit">
-          <a href="/tickets/{{_id}}/edit?allow=true">редактировать</a>
-        </div>
       </div>
   </div>
 </div>
