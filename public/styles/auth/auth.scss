@@ -17,23 +17,28 @@ body {
   padding: 0;
 }
 
+.ui-alert-error {
+  font-size: 1.5rem;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 25px;
+  background-color: orange;
+}
+
 .auth {
   padding-top: 2rem;
-
-  .ui-alert-error {
-    font-size: 1.5rem;
-    color: black;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 25px;
-    background-color: orange;
-  }
 
   .row {
     width: 70vw;
 
     .auth-btn {
       width: 100%;
+    }
+
+    #forgotPassword {
+      margin-top: -10px;
+      margin-bottom: 15px;
     }
 
     h1 {

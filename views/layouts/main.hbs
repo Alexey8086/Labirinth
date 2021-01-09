@@ -5,9 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <link type="text/css" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
+
   {{#if isLogin}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   {{/if}}
+
+  {{#if isReset}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  {{/if}}
+
+  {{#if isNewPassword}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  {{/if}}
+
   <link type="text/css" rel="stylesheet" href="/styles/{{style}}">
   <title>{{title}}</title>
 </head>
@@ -28,6 +38,14 @@
       // активация табов для страницы авторизации
       M.Tabs.init(document.querySelectorAll('.tabs'));
     </script>
+  {{/if}}
+
+  {{#if isReset}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  {{/if}}
+
+  {{#if isNewPassword}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   {{/if}}
 </body>
 </html>

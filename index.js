@@ -6,10 +6,7 @@ const exphbs = require('express-handlebars')
 const session = require('express-session')
 const MongoStore = require('connect-mongodb-session')(session)
 const mongoose = require('mongoose')
-const db_username = 'All-exe'
-const db_password = 'h0ouIA*L'
-const db_name = 'gym'
-const db_url = `mongodb+srv://${db_username}:${db_password}@cluster0.jgzhb.gcp.mongodb.net/${db_name}`
+const KEYS = require('./keys')
 
 const coverRoutes = require('./routes/cover')
 const cardRoutes = require('./routes/card')
@@ -18,15 +15,19 @@ const ticketsRoutes = require('./routes/tickets')
 const aboutRoutes = require('./routes/about')
 const authRoutes = require('./routes/auth')
 const ordersRoutes = require('./routes/orders')
-const PORT = process.env.PORT || 8000
+
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
 
+const PORT = process.env.PORT || 8000
 const app = express()
+
+const myHelpers = require('./utils/hbs-helpers')
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: 'hbs',
+  helpers: myHelpers,
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
     allowProtoMethodsByDefault: true,
@@ -35,7 +36,7 @@ const hbs = exphbs.create({
 
 const store = new MongoStore({
   collection: 'sessions',
-  uri: db_url
+  uri: KEYS.db_url
 })
 
 app.engine('hbs', hbs.engine)
@@ -47,7 +48,7 @@ app.use(express.urlencoded({extended: true}))
 
 // конфигурация функции сессии, которая является middleware
 app.use(session({
-  secret: 'secret-value',
+  secret: KEYS.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: store
@@ -67,7 +68,7 @@ app.use('/orders', ordersRoutes)
 
 async function start () {
   try {
-    await mongoose.connect(db_url, {
+    await mongoose.connect(KEYS.db_url, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useFindAndModify: false

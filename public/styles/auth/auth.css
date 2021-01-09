@@ -335,11 +335,7 @@ body {
   padding: 0;
 }
 
-.auth {
-  padding-top: 2rem;
-}
-
-.auth .ui-alert-error {
+.ui-alert-error {
   font-size: 1.5rem;
   color: black;
   font-weight: bold;
@@ -348,12 +344,21 @@ body {
   background-color: orange;
 }
 
+.auth {
+  padding-top: 2rem;
+}
+
 .auth .row {
   width: 70vw;
 }
 
 .auth .row .auth-btn {
   width: 100%;
+}
+
+.auth .row #forgotPassword {
+  margin-top: -10px;
+  margin-bottom: 15px;
 }
 
 .auth .row h1 {

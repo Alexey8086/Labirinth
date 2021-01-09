@@ -1,9 +1,24 @@
 const {Router} = require('express')
 const router = Router()
+// Подключение встроенной библиотеки для шифрования данных
+const crypto = require('crypto')
 // Подключение библиотеки для шифрования данных
 const bcrypt = require('bcryptjs')
 // Подключение модели пользователя
 const userSchema = require('../models/user')
+// Подключение библиотек для отправки писем по email
+const nodemailer = require('nodemailer')
+const sendgrid = require('nodemailer-sendgrid-transport')
+// Импорт api key из самописного конфига
+const KEYS = require('../keys')
+// Подключение объекта конфигурации email-письма
+const regEmail = require('../emails/registration')
+// Импорт конфигурации письма для сброса пароля
+const resetEmail = require('../emails/reset')
+
+const transporter = nodemailer.createTransport(sendgrid({
+  auth: {api_key: KEYS.SENDGRID_API_KEY}
+}))
 
 router.get('/login', async (req, res) => {
 
@@ -42,7 +57,7 @@ router.post('/login', async (req, res) => {
           }
         })
       } else {
-        req.flash('loginError', 'Введённые пароли не совпадают!')
+        req.flash('loginError', 'Введён не верный пароль!')
         res.redirect('/auth/login#login')
       }
 
@@ -75,6 +90,101 @@ router.post('/register', async (req, res) => {
       })
       await user.save()
       res.redirect('/auth/login#login')
+      await transporter.sendMail(regEmail(email))
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/reset', (req, res) => {
+  res.render('auth/reset', {
+    style: '/auth/auth.css',
+    title: 'Сброс пароля',
+    isReset: true,
+    error: req.flash('error'),
+  })
+})
+
+router.get('/password/:token', async (req, res) => {
+  if (!req.params.token) {
+    return res.redirect('/auth/login')
+  }
+
+  try {
+    const user = await userSchema.findOne({
+      // Проверка наличия токена для сброса пароля
+      resetToken: req.params.token,
+      // Проверка времени жизни токена
+      resetTokenExpiration: {$gt: Date.now()}
+    })
+
+    if (!user) {
+      return res.redirect('/auth/login')
+    } else {
+      res.render('auth/password', {
+        style: '/auth/auth.css',
+        title: 'Создание нового пароля',
+        isNewPassword: true,
+        error: req.flash('error'),
+        userId: user._id.toString(),
+        token: req.params.token
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.post('/reset', (req, res) => {
+  try {
+    crypto.randomBytes(32, async (err, buffer) => {
+      if (err) {
+        req.flash('error', 'Что-то пошло не так, попробуйте ещё раз позже')
+        return res.redirect('/auth/reset')
+      }
+
+      const token = buffer.toString('hex')
+      const candidate = await userSchema.findOne({email: req.body.email})
+
+      if (candidate) {
+        // Инициализация токена для сброса пароля у пользователя
+        candidate.resetToken = token
+        // Задание времени жизни для токена (1 час в миллисекундах)
+        candidate.resetTokenExpiration = Date.now() + 60 * 60 * 1000
+        // Ждём пока функция "save" сохранит данные в БД
+        await candidate.save()
+        // Ждём пока фуккция "sendMail" отправит письмо для восстановления пароля на почту пользователя
+        await transporter.sendMail(resetEmail(candidate.email, token))
+        res.redirect('/auth/login')
+      } else {
+        req.flash('error', 'Пользователь с введённым email не найден!')
+        res.redirect('/auth/reset')
+      }
+    })
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+router.post('/password', async (req, res) => {
+  try {
+    const user = await userSchema.findOne({
+      _id: req.body.userId,
+      resetToken: req.body.token,
+      resetTokenExpiration: {$gt: Date.now()}
+    })
+
+    if (user) {
+      user.password = await bcrypt.hash(req.body.password, 10)
+      user.resetToken = undefined
+      user.resetTokenExpiration = undefined
+      await user.save()
+      res.redirect('/auth/login')
+    } else {
+      req.flash('loginError', 'Время действия токена истекло')
+      res.redirect('/auth/login')
     }
 
   } catch (error) {

@@ -41,12 +41,25 @@
           </button>
         {{/if}}
 
+        {{#isAdminId @root.userId}}
+          <div class="edit">
+            <a href="/tickets/{{_id}}/edit?allow=true">редактировать</a>
+          </div>
+        {{/isAdminId}}
+
+<!-- 
+        <pre>{{userId._id}} &nbsp; {{@root.userId}}</pre>
+
+        {{#isAdminId @root.userId}}
+        <p style="font-size: 2.2rem; color: orange; font-weight: 400;">This is working fine!</p>
+        {{/isAdminId}}
+
         {{#if @root.isAuth}}
           <div class="edit">
             <a href="/tickets/{{_id}}/edit?allow=true">редактировать</a>
           </div>
         {{/if}}
-
+-->
       </div>
   </div>
 </div>
