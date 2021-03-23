@@ -2,6 +2,7 @@ const {Router} = require('express')
 const router = Router()
 // Подключение встроенной библиотеки для шифрования данных
 const crypto = require('crypto')
+const {validationResult} = require('express-validator')
 // Подключение библиотеки для шифрования данных
 const bcrypt = require('bcryptjs')
 // Подключение модели пользователя
@@ -15,6 +16,7 @@ const KEYS = require('../keys')
 const regEmail = require('../emails/registration')
 // Импорт конфигурации письма для сброса пароля
 const resetEmail = require('../emails/reset')
+const {registerValidators} = require('../utils/validators')
 
 const transporter = nodemailer.createTransport(sendgrid({
   auth: {api_key: KEYS.SENDGRID_API_KEY}
@@ -22,13 +24,17 @@ const transporter = nodemailer.createTransport(sendgrid({
 
 router.get('/login', async (req, res) => {
 
-  res.render('auth/login', {
-    style: '/auth/auth.css',
-    title: 'Личный кабинет',
-    isLogin: true,
-    loginError: req.flash('loginError'),
-    registerError: req.flash('registerError')
-  })
+  if (req.session.isAuthenticated) {
+    return res.redirect('/profile')
+  } else {
+    res.render('auth/login', {
+      style: '/auth/auth.css',
+      title: 'Личный кабинет',
+      isLogin: true,
+      loginError: req.flash('loginError'),
+      registerError: req.flash('registerError')
+    })
+  }
 })
 
 router.get('/logout', async (req, res) => {
@@ -39,7 +45,8 @@ router.get('/logout', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const {email, password} = req.body
+    const email = req.body.email.toLowerCase()
+    const password = req.body.password
 
     const candidate = await userSchema.findOne({ email })
 
@@ -53,11 +60,11 @@ router.post('/login', async (req, res) => {
           if (err) {
             throw err
           } else {
-            res.redirect('/tickets')
+            res.redirect('/profile')
           }
         })
       } else {
-        req.flash('loginError', 'Введён не верный пароль!')
+        req.flash('loginError', 'Введён неверный пароль!')
         res.redirect('/auth/login#login')
       }
 
@@ -71,30 +78,31 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', registerValidators, async (req, res) => {
   try {
-    const {email, password, confirm, name} = req.body
-    const candidate = await userSchema.findOne({ email })
-
-    if (candidate) {
-      req.flash('registerError', 'Пользователь с таким email уже существует!')
-      res.redirect('/auth/login#register')
-    } else {
-      // шифрования пароля
-      const hashPassword = await bcrypt.hash(password, 10)
-      const user = new userSchema({
-        email,
-        name,
-        password: hashPassword,
-        card: {items: []}
-      })
-      await user.save()
-      res.redirect('/auth/login#login')
-      await transporter.sendMail(regEmail(email))
+    const {email, password, name} = req.body
+    
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      req.flash('registerError', errors.array()[0].msg)
+      return res.status(422).redirect('/auth/login#register')
     }
 
-  } catch (error) {
-    console.log(error)
+
+    // шифрования пароля
+    const hashPassword = await bcrypt.hash(password, 10)
+    const user = new userSchema({
+      email: email.toLowerCase(),
+      name,
+      password: hashPassword,
+      card: {items: []}
+    })
+    await user.save()
+    res.redirect('/auth/login#login')
+    await transporter.sendMail(regEmail(email))
+
+  } catch (e) {
+    console.log(e)
   }
 })
 

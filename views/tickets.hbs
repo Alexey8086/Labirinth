@@ -41,11 +41,11 @@
           </button>
         {{/if}}
 
-        {{#isAdminId @root.userId}}
+        {{#isEqual @root.userRole 'admin'}}
           <div class="edit">
             <a href="/tickets/{{_id}}/edit?allow=true">редактировать</a>
           </div>
-        {{/isAdminId}}
+        {{/isEqual}}
 
 <!-- 
         <pre>{{userId._id}} &nbsp; {{@root.userId}}</pre>

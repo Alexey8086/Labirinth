@@ -9,7 +9,7 @@ const MenuToggler = () => {
       smContainerSidebar.style.left = 0
       isSlide = true
 
-      console.log('Sidebar is Open');
+      // console.log('Sidebar is Open');
     }
   })
   
@@ -25,7 +25,7 @@ const MenuToggler = () => {
       // smContainerSidebar.style.left = '-35vw'
       isSlide = false
 
-      console.log('Sidebar is Close');
+      // console.log('Sidebar is Close');
     }
   })
 }

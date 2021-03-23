@@ -31,7 +31,12 @@
   
   {{> footer}}
 
-  <script src="/bundle.js"></script>
+  {{#if isEditor}}
+    <script src="/EditorBundle.js"></script>
+  {{else}}
+    <script src="/bundle.js"></script>
+  {{/if}}
+  
   {{#if isLogin}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">

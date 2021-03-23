@@ -10,6 +10,12 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  avatarUrl: String,
+  role: {
+    type: String,
+    required: true,
+    default: 'client'
+  },
   resetToken: String,
   resetTokenExpiration: Date,
   card: {

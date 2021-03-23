@@ -1,6 +1,12 @@
-<h1>Редактировать абонемент {{ticket.title}}</h1>
+<h1>Редактировать абонемент "{{ticket.title}}"</h1>
 
-<form action="/tickets/edit" method="POST">
+<div style="width: 100%; position: absolute; top: 180px; display: flex; justify-content: center; box-sizing: border-box;">
+  {{#if editFormError}}
+  <p class="ui-alert-error">{{editFormError}}</p>
+{{/if}}
+</div>
+
+<form class="edit_form_save" action="/tickets/edit" method="POST">
   <div class="input-field">
     <input id="title" name="title" type="text" class="validate" required min="5" value="{{ticket.title}}">
     <label for="title">Название абонемента</label>
@@ -37,7 +43,7 @@
   <button type="submit"class="Edit-btn">Сохранить</button>
 </form>
 
-<form action="/tickets/remove" method="POST">
+<form class="edit_form_remove" action="/tickets/remove" method="POST">
   <input type="hidden" name="id" value="{{ticket._id}}">
 
   <input type="hidden" name="_csrf" value="{{surf}}">

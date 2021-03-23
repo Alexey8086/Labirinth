@@ -1,18 +1,27 @@
 const {Router} = require('express')
 const Ticket = require('../models/ticket')
+const User = require('../models/user')
   //middleware, который закрывает доступ к странице для неавторизованных пользователей
 const auth = require('../middleware/auth')
 const router = Router()
 const KEYS = require('../keys')
+const {validationResult} = require('express-validator')
+const {ticketValidators} = require('../utils/validators')
 
-function userIsAdmin(req, ADMIN_ID) {
-  return req.user._id.toString() === ADMIN_ID
+async function userIsAdmin(userId) {
+  try {
+    const user = await User.findById(userId)
+    return user.role
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-router.get('/', auth, (req, res) => {
+router.get('/', auth, async (req, res) => {
   // Если пользователь не является администратором,
   // то страница создания абонемента не откроется
-  if (!userIsAdmin(req, KEYS.ADMIN_ID)) {
+  let isAdmin = await userIsAdmin(req.session.user._id)
+  if (!isAdmin) {
     return res.redirect('/tickets')
   }
 
@@ -23,11 +32,30 @@ router.get('/', auth, (req, res) => {
   })
 })
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, ticketValidators, async (req, res) => {
   // Если пользователь не является администратором,
   // то он не сможет создать новый абонемент
-  if (!userIsAdmin(req, KEYS.ADMIN_ID)) {
+  let isAdmin = await userIsAdmin(req.session.user._id)
+  if (!isAdmin) {
     return res.redirect('/tickets')
+  }
+
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render('add', {
+      style: '/add/add.css',
+      title: 'Добавить абонемент',
+      isAdd: true,
+      error: errors.array()[0].msg,
+      data: {
+        title: req.body.title,
+        price: req.body.price,
+        option1: req.body.option1,
+        option2: req.body.option2,
+        option3: req.body.option3
+      }
+    })
   }
 
   const ticket = new Ticket({

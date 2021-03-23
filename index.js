@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const session = require('express-session')
 const MongoStore = require('connect-mongodb-session')(session)
 const mongoose = require('mongoose')
+const fileMiddleware = require('./middleware/file')
 const KEYS = require('./keys')
 
 const coverRoutes = require('./routes/cover')
@@ -15,9 +16,11 @@ const ticketsRoutes = require('./routes/tickets')
 const aboutRoutes = require('./routes/about')
 const authRoutes = require('./routes/auth')
 const ordersRoutes = require('./routes/orders')
+const profileRoutes = require('./routes/profile')
 
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
+const errorHandler = require('./middleware/error')
 
 const PORT = process.env.PORT || 8000
 const app = express()
@@ -44,7 +47,8 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.urlencoded({extended: true}))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use(express.urlencoded({extended: true})) // false
 
 // конфигурация функции сессии, которая является middleware
 app.use(session({
@@ -53,6 +57,8 @@ app.use(session({
   saveUninitialized: false,
   store: store
 }))
+
+app.use(fileMiddleware.single('avatar'))
 app.use(surf())
 app.use(flash())
 app.use(varMiddleware)
@@ -65,6 +71,12 @@ app.use('/about', aboutRoutes)
 app.use('/auth', authRoutes)
 app.use('/card', cardRoutes)
 app.use('/orders', ordersRoutes)
+app.use('/profile', profileRoutes)
+
+// app.use('/editor', editorRoutes)
+// app.use('/', coverRoutes)
+
+app.use(errorHandler)
 
 async function start () {
   try {
@@ -77,6 +89,7 @@ async function start () {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)
     })
+    
   } catch (error) {
     console.log(error)
   }
