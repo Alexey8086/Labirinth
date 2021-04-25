@@ -45,7 +45,7 @@
       </strong>
 
     <form id="order-form" action="/orders" method="POST">
-      <input type="hidden" name="_csrf" value="{{surf}}">
+      <input type="hidden" name="_csrf" value="{{@root.surf}}">
       <button type="submit" class="order-btn">Оформить заказ</button>
     </form>
   </div>
@@ -56,7 +56,7 @@
         <h1 id="sat-card-title">Корзина</h1>
       </div>
 
-      <p id="sat-card-is-empty" style="margin-top: 200px;">Корзина пуста</p>
+      <p id="sat-card-is-empty">Корзина пуста</p>
     </div>
   {{/if}}
 </div>

@@ -1,0 +1,15 @@
+<div class="editor-container">
+  <div id="editorjs" class="editorjs">
+    
+  </div>
+</div>
+
+<input id="editor-surf-input" type="hidden" name="_csrf" value="{{surf}}">
+
+  {{#if isWriter}}
+    <button id="editor_save_btn" class="save_data_btn">Сохранить</button>
+  {{/if}}
+
+  {{#if isDeletable}}
+    <button id="editor_delete_btn" class="delete_data_btn">Удалить</button>
+  {{/if}}

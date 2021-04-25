@@ -17,6 +17,8 @@ const aboutRoutes = require('./routes/about')
 const authRoutes = require('./routes/auth')
 const ordersRoutes = require('./routes/orders')
 const profileRoutes = require('./routes/profile')
+const editorRoutes = require('./routes/editor')
+const articlesRoutes = require('./routes/articles')
 
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
@@ -48,7 +50,8 @@ app.set('views', 'views')
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-app.use(express.urlencoded({extended: true})) // false
+app.use(express.json())
+app.use(express.urlencoded({extended: false})) // было true
 
 // конфигурация функции сессии, которая является middleware
 app.use(session({
@@ -72,9 +75,9 @@ app.use('/auth', authRoutes)
 app.use('/card', cardRoutes)
 app.use('/orders', ordersRoutes)
 app.use('/profile', profileRoutes)
+app.use('/articles', articlesRoutes)
 
-// app.use('/editor', editorRoutes)
-// app.use('/', coverRoutes)
+app.use('/editor', editorRoutes)
 
 app.use(errorHandler)
 

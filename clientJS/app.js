@@ -2,12 +2,19 @@ import MenuToggler from './plugins/menu-toggler'
 import slider from './plugins/slider'
 import './plugins/modal'
 import $ from './plugins/modal'
-import googleMap from './plugins/google-map'
+import { Map } from './plugins/google-map'
 import cardRemove from './plugins/card-remove'
 import toCurrency from './plugins/toCurrency'
 import dateFormat from './plugins/dateFormat'
 
 import firebase from './firebase/firebase'
+
+import EditorJS from '@editorjs/editorjs'
+import ImageTool from '@editorjs/image'
+import Header from '@editorjs/header'
+import Paragraph from '@editorjs/paragraph'
+import getParams from './plugins/getParams'
+
 const container = document.querySelector('.slider-container')
 
 MenuToggler()
@@ -72,7 +79,17 @@ if (container) {
   initListeners()
 }
 
-googleMap()
+if (document.querySelector('#map')) {
+  document.addEventListener("DOMContentLoaded", function() {
+    let mapElement = document.getElementById('map');
+    
+    Map.loadGoogleMapsApi().then(function(googleMaps) {
+      const map = Map.createMap(googleMaps, mapElement)
+      Map.createMarker(googleMaps, map)
+      
+    })
+  })
+}
 
 cardRemove(document.querySelector('#card'))
 
@@ -95,4 +112,156 @@ if (document.querySelectorAll('.date')) {
     .forEach(node => {
       node.textContent = dateFormat(node.textContent)
     })
+}
+
+// EDITOR JS -------------------------------------
+if (document.getElementById('editorjs')) {
+  
+  async function tempFunc (resolve, reject) {
+    const id = getParams('id', window.location.href)
+  
+    try {
+      if (id) {
+        let data = await fetch('/editor/toClient/' + id, {
+          method: 'get',
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json'
+          },
+        })
+    
+        data = await data.json()
+    
+        delete data._id
+    
+    
+        resolve(data)
+      } else {
+        resolve(false)
+      }
+  
+  
+    } catch (error) {
+      reject(error)
+    }
+  }
+  
+  function editorConfig (DATA) {
+    if (DATA) {
+      return new EditorJS({
+  
+        holder: 'editorjs',
+      
+        tools: {
+          header: {
+            class: Header,
+            config: {
+              placeholder: 'Enter a header',
+              levels: [2, 3, 4],
+              defaultLevel: 3
+            }
+          },
+      
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+          }
+        },
+      
+        data: {
+          ...DATA
+        }
+      
+      })
+    } 
+    else {
+      return new EditorJS({
+  
+        holder: 'editorjs',
+      
+        tools: {
+          header: {
+            class: Header,
+            config: {
+              placeholder: 'Enter a header',
+              levels: [2, 3, 4],
+              defaultLevel: 3
+            }
+          },
+      
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+          }
+        },
+  
+        data: {}
+      })
+    }
+  }
+  
+  const getData = new Promise((resolve, reject) => {
+    tempFunc(resolve, reject)
+  })
+  
+  getData.then(DATA =>  {
+    return editorConfig(DATA)
+  }).then(editor => {
+    console.log("EDITOR INSIDE", editor);
+    editor.isReady.then(() => {
+  
+      var csrf = document.getElementById('editor-surf-input').value
+      const saveBtn = document.getElementById('editor_save_btn')
+      const deleteBtn = document.getElementById('editor_delete_btn')
+      saveBtn.addEventListener('click', async function saveCallback () {
+        const savedDATA = await editor.save()
+        const URL = getParams('id', window.location.href) ? '/editor/edit' : '/editor'
+        const noteId = getParams('id', window.location.href)
+        savedDATA.id = noteId
+
+          const response = await fetch(URL, {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'Accept': 'application/json',
+              'X-XSRF-TOKEN': csrf
+            },
+            body: JSON.stringify(savedDATA)
+          })
+
+          console.log("data saved --CUSTOM")
+    
+        console.log("Click!");
+        saveBtn.removeEventListener('click', saveCallback)
+    
+        document.location.href = '/articles'
+      })
+
+      deleteBtn.addEventListener('click', async function saveCallback () {
+        const noteId = getParams('id', window.location.href)
+        const id = {id: noteId}
+
+        const response = await fetch('/editor/remove', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+            'X-XSRF-TOKEN': csrf
+          },
+          body: JSON.stringify(id)
+        })
+
+        console.log("note deleted --CUSTOM")
+    
+        console.log("Click!");
+        deleteBtn.removeEventListener('click', saveCallback)
+    
+        document.location.href = '/articles'
+      })
+    }).catch((reason) => {
+      console.log(`Editor.js initialization failed because of ${reason}`)
+    })
+  
+  })
+
 }

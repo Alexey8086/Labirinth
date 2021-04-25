@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "watch": "webpack --watch",
+    "b": "webpack --config webpack.config.js",
+    "w": "webpack --watch",
     "dev": "nodemon index.js",
-    "wpack": "npm run build && npm run watch"
+    "wpack": "npm run b && npm run w"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +32,7 @@
     "multer": "^1.4.2",
     "nodemailer": "^6.4.17",
     "nodemailer-sendgrid-transport": "^0.2.0",
+    "sanitize-html": "^2.3.3",
     "uuid": "^8.2.0"
   },
   "devDependencies": {

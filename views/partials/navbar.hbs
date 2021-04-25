@@ -41,6 +41,12 @@
             <li><a href="/about">О КОМПАНИИ</a></li>
         {{/if}}
 
+        {{#if isArticles}}
+            <li><a href="/articles" style="color: #F3AEAE">СТАТЬИ</a></li>
+        {{else}}
+            <li><a href="/articles">СТАТЬИ</a></li>
+        {{/if}}
+
         {{#if isAuth}}
             <li><a href="/auth/logout">ВЫЙТИ</a></li>
         {{/if}}

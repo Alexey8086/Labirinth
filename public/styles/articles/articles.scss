@@ -1,0 +1,72 @@
+nav {
+  all: initial;
+}
+
+@import "../navbar/navbar.scss";
+@import "../footer/footer.scss";
+
+body {
+  background: whitesmoke;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  padding-top: 50px;
+  padding-left: 80px;
+  padding-right: 80px;
+
+  h1 {
+    display: block;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  #blocks-grid-container {
+    background-color: transparent; /* #18191d  3d3a78 */
+    width: 100%;
+    min-height: 500px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Неявный грид */
+    grid-auto-rows: 150px;
+    grid-gap: 30px;
+  
+    &> a {
+      display: block;
+      text-decoration: none;
+      color: transparent;
+  
+      &>.item {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow:  20px 20px 60px #d9d9d9,
+                    -20px -20px 60px #ffffff;
+        transition: 0.8s;
+        padding: 10px;
+  
+        &>h1 {
+          font-size: 1.7rem;
+          color: black;
+        }
+  
+        &>p{
+          font-size: 1.2rem;
+          color: rgb(36, 36, 36);
+        }
+  
+        &:hover {
+          background-color: rgb(199, 142, 154);
+          transition: 0.4s;
+        }
+      }
+    }
+  }
+}
+

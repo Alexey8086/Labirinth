@@ -1,0 +1,17 @@
+<h1>Статьи</h1>
+
+<div id="blocks-grid-container">
+  {{#each Articles}}
+    <a href="/editor?id={{id}}">
+      <div class="item">
+        <h1>{{title}}</h1>
+
+        {{#if text}}
+          <p>{{text}}</p>
+        {{else}}
+          <p>В статье нет текста</p>
+        {{/if}}
+      </div>
+    </a>
+  {{/each}}
+</div>

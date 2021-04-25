@@ -1,0 +1,66 @@
+nav {
+  all: initial;
+}
+
+@import "../navbar/navbar.scss";
+@import "../footer/footer.scss";
+
+body {
+  background: whitesmoke;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  // width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .editor-container {
+    width: 60vw;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: -2px 8px 35px 9px rgba(0,0,0,0.69);
+    margin: 0 auto;
+    margin-top: 150px;
+    border-radius: 15px;
+
+    .editorjs {
+      font-family: monospace, serif;
+      font-size: 1.5rem;
+      
+    }
+  }
+
+  .save_data_btn {
+    width: 60vw;
+    height: 60px;
+    background-color: rgb(109, 125, 218);
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 15px;
+    margin-top: 50px;
+  }
+
+  .delete_data_btn {
+    width: 60vw;
+    height: 60px;
+    background-color: rgb(184, 65, 65);
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 150px;
+  }
+}

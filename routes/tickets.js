@@ -13,7 +13,8 @@ const {ticketValidators} = require('../utils/validators')
 async function userIsAdmin(userId) {
   try {
     const user = await User.findById(userId)
-    return user.role
+    if (user.role === "admin") return user.role
+    else return null
   } catch (e) {
     console.log(e)
   }
@@ -38,7 +39,7 @@ router.get('/', async (req, res) => {
       style: '/tickets/tickets.css',
       title: 'Абонементы',
       isTickets: true,
-      userRole: user.role,
+      userRole: user ? user.role : null,
       tickets
     })
 

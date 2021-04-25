@@ -44,6 +44,9 @@
         {{/isEqual}}
 
         {{#isEqual @root.userRole 'client'}}
+          <br>
+          <br>
+          <hr class="sat-hr-line">
           <a href="/card">
             <button type="button" class="btn sat-btn">Перейти в корзину</button>
           </a>
@@ -53,7 +56,7 @@
           <br>
           <br>
           <hr class="sat-hr-line">
-          <a href="/">
+          <a href="/editor">
             <button type="button" class="btn sat-btn">Создать статью</button>
           </a>
         {{/isEqual}}
