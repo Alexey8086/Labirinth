@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "b": "webpack --config webpack.config.js",
     "w": "webpack --watch",
     "dev": "nodemon index.js",
