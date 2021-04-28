@@ -1,10 +1,9 @@
 import loadGoogleMapsApi from 'load-google-maps-api'
 
-// AIzaSyCikIhcNVjCrt36iuKAkAKxpKSqoeJ4mRM
 class Map {
 
-  static loadGoogleMapsApi() {
-    return loadGoogleMapsApi({ key: "AIzaSyB1q7ebI8Aa184Xcgrxje7ywOa2RzGZ1mA" })
+  static loadGoogleMapsApi(api_key) {
+    return loadGoogleMapsApi({ key: api_key.key })
   }
 
   static createMap(googleMaps, mapElement) {
@@ -23,20 +22,3 @@ class Map {
 }
 
 export { Map }
-
-// const initMap = () => {
-
-//   const LAB = { lat: 54.804049, lng: 56.121930 }
-
-//   const map = new google.maps.Map(document.getElementById("map"), {
-//     zoom: 4,
-//     center: LAB,
-//   })
-
-//   const marker = new google.maps.Marker({
-//     position: LAB,
-//     map: map,
-//   })
-// }
-
-// export default googleMap

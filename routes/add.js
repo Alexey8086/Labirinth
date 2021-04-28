@@ -4,7 +4,6 @@ const User = require('../models/user')
   //middleware, который закрывает доступ к странице для неавторизованных пользователей
 const auth = require('../middleware/auth')
 const router = Router()
-const KEYS = require('../keys')
 const {validationResult} = require('express-validator')
 const {ticketValidators} = require('../utils/validators')
 

@@ -1,7 +1,6 @@
 const {Router} = require('express')
 const Ticket = require('../models/ticket')
 const User = require('../models/user')
-const KEYS = require('../keys')
   //middleware, который закрывает доступ к странице для неавторизованных пользователей
 const auth = require('../middleware/auth')
 const normalizePrice = require('../middleware/normalizePrice')
@@ -113,18 +112,19 @@ router.post('/edit', auth, normalizePrice, ticketValidators, async (req, res) =>
 // удаление редактируемого абонемента в бд
 router.post('/remove', auth, async (req, res) => {
   const {id} = req.body
+  const userId = req.user._id.toString()
 
   try {
     // Если пользователь не является администратором,
     // то он не сможет удалить абонемент
-    let isAdmin = await userIsAdmin(req.user._id.toString())
+    let isAdmin = await userIsAdmin(userId)
     if (!isAdmin) {
       return res.redirect('/tickets')
     }
 
     await Ticket.deleteOne({
       _id: id,
-      userId: KEYS.ADMIN_ID
+      userId
     })
     res.redirect('/tickets')
   } catch (error) {

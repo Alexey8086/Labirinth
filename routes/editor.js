@@ -17,23 +17,28 @@ async function userIsWriter(userId) {
 
 // страница новости
 router.get('/:id', auth, async (req, res) => {
+
+  let isWriter = false
+  let isDeletable = false
+
+  isWriter = (req.session.user.role === 'writer') ? true : false
+  if (req.query.id && isWriter) isDeletable = true
+
   res.render('editor', {
     style: '/editor/editor.css',
     title: 'Редактор',
-    isEditor: true,
+    isWriter,
+    isDeletable
   })
 })
 
 // страница создания новости
 router.get('/', auth, async (req, res) => {
-  let writer = await userIsWriter(req.session.user._id)
-  let isWriter = writer ? true : false
+  let isWriter = false
   let isDeletable = false
-  try {
-    if (req.query.id && isWriter) isDeletable = true
-  } catch (error) {
-    console.log(error)
-  }
+
+  isWriter = (req.session.user.role === 'writer') ? true : false
+  if (req.query.id && isWriter) isDeletable = true
 
   res.render('editor', {
     style: '/editor/editor.css',

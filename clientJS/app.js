@@ -10,7 +10,6 @@ import dateFormat from './plugins/dateFormat'
 import firebase from './firebase/firebase'
 
 import EditorJS from '@editorjs/editorjs'
-import ImageTool from '@editorjs/image'
 import Header from '@editorjs/header'
 import Paragraph from '@editorjs/paragraph'
 import getParams from './plugins/getParams'
@@ -80,15 +79,31 @@ if (container) {
 }
 
 if (document.querySelector('#map')) {
-  document.addEventListener("DOMContentLoaded", function() {
+
+  document.addEventListener("DOMContentLoaded", async function() {
     let mapElement = document.getElementById('map');
-    
-    Map.loadGoogleMapsApi().then(function(googleMaps) {
+    const csrf = document.getElementById('index_csrf').value ? document.getElementById('index_csrf').value : ''
+    const queryObj = {apiClient: 'google-map'}
+
+    var api_key = await fetch('/api/keys', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json',
+        'X-XSRF-TOKEN': csrf
+      },
+      body: JSON.stringify(queryObj)
+    })
+
+    api_key = await api_key.json()
+
+    Map.loadGoogleMapsApi(api_key).then(function(googleMaps) {
       const map = Map.createMap(googleMaps, mapElement)
       Map.createMarker(googleMaps, map)
       
     })
   })
+
 }
 
 cardRemove(document.querySelector('#card'))
@@ -213,51 +228,56 @@ if (document.getElementById('editorjs')) {
       var csrf = document.getElementById('editor-surf-input').value
       const saveBtn = document.getElementById('editor_save_btn')
       const deleteBtn = document.getElementById('editor_delete_btn')
-      saveBtn.addEventListener('click', async function saveCallback () {
-        const savedDATA = await editor.save()
-        const URL = getParams('id', window.location.href) ? '/editor/edit' : '/editor'
-        const noteId = getParams('id', window.location.href)
-        savedDATA.id = noteId
 
-          const response = await fetch(URL, {
+      if (saveBtn) {
+        saveBtn.addEventListener('click', async function saveCallback () {
+          const savedDATA = await editor.save()
+          const URL = getParams('id', window.location.href) ? '/editor/edit' : '/editor'
+          const noteId = getParams('id', window.location.href)
+          savedDATA.id = noteId
+
+            const response = await fetch(URL, {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'X-XSRF-TOKEN': csrf
+              },
+              body: JSON.stringify(savedDATA)
+            })
+
+            console.log("data saved --CUSTOM")
+
+          saveBtn.removeEventListener('click', saveCallback)
+      
+          document.location.href = '/articles'
+        })
+      }
+
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', async function saveCallback () {
+          const noteId = getParams('id', window.location.href)
+          const id = {id: noteId}
+
+          const response = await fetch('/editor/remove', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',
               'Accept': 'application/json',
               'X-XSRF-TOKEN': csrf
             },
-            body: JSON.stringify(savedDATA)
+            body: JSON.stringify(id)
           })
 
-          console.log("data saved --CUSTOM")
-    
-        console.log("Click!");
-        saveBtn.removeEventListener('click', saveCallback)
-    
-        document.location.href = '/articles'
-      })
-
-      deleteBtn.addEventListener('click', async function saveCallback () {
-        const noteId = getParams('id', window.location.href)
-        const id = {id: noteId}
-
-        const response = await fetch('/editor/remove', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            'Accept': 'application/json',
-            'X-XSRF-TOKEN': csrf
-          },
-          body: JSON.stringify(id)
+          console.log("note deleted --CUSTOM")
+      
+          console.log("Click!");
+          deleteBtn.removeEventListener('click', saveCallback)
+      
+          document.location.href = '/articles'
         })
+      }
 
-        console.log("note deleted --CUSTOM")
-    
-        console.log("Click!");
-        deleteBtn.removeEventListener('click', saveCallback)
-    
-        document.location.href = '/articles'
-      })
     }).catch((reason) => {
       console.log(`Editor.js initialization failed because of ${reason}`)
     })

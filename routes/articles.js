@@ -1,8 +1,6 @@
 const {Router} = require('express')
 const User = require('../models/user')
 const Note = require('../models/editor_schema')
-  //middleware, который закрывает доступ к странице для неавторизованных пользователей
-const auth = require('../middleware/auth')
 const router = Router()
 const sanitizeHtml = require('sanitize-html');
 

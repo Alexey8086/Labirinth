@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 const surf = require('csurf')
+const helmet = require('helmet')
+const compression = require('compression')
 const flash = require('connect-flash')
 const exphbs = require('express-handlebars')
 const session = require('express-session')
@@ -19,6 +21,7 @@ const ordersRoutes = require('./routes/orders')
 const profileRoutes = require('./routes/profile')
 const editorRoutes = require('./routes/editor')
 const articlesRoutes = require('./routes/articles')
+const api_keysRoutes = require('./routes/api-keys')
 
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
@@ -64,6 +67,8 @@ app.use(session({
 app.use(fileMiddleware.single('avatar'))
 app.use(surf())
 app.use(flash())
+// app.use(helmet())
+app.use(compression())
 app.use(varMiddleware)
 app.use(userMiddleware)
 
@@ -78,6 +83,7 @@ app.use('/profile', profileRoutes)
 app.use('/articles', articlesRoutes)
 
 app.use('/editor', editorRoutes)
+app.use('/api', api_keysRoutes)
 
 app.use(errorHandler)
 
