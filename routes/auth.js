@@ -117,6 +117,7 @@ router.get('/reset', (req, res) => {
     title: 'Сброс пароля',
     isReset: true,
     error: req.flash('error'),
+    message: req.flash('message')
   })
 })
 
@@ -170,7 +171,8 @@ router.post('/reset', (req, res) => {
         await candidate.save()
         // Ждём пока фуккция "sendMail" отправит письмо для восстановления пароля на почту пользователя
         await transporter.sendMail(resetEmail(candidate.email, token))
-        res.redirect('/auth/login')
+        req.flash('message', 'Для смены пароля, пожалуйста, следуйте инструкциям. Инструкции изложены в письме, которое отправлено на адрес указанной вами электронной почты.')
+        res.redirect('/auth/reset')
       } else {
         req.flash('error', 'Пользователь с введённым email не найден!')
         res.redirect('/auth/reset')

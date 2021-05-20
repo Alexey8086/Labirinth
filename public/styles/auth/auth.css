@@ -344,6 +344,15 @@ body {
   background-color: orange;
 }
 
+.ui-alert-message {
+  font-size: 1.5rem;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 29vh;
+  background-color: #4fd38a;
+}
+
 .auth {
   padding-top: 2rem;
 }

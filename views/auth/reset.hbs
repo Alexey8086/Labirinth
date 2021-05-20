@@ -5,18 +5,23 @@
     <p class="ui-alert-error">{{error}}</p>
     {{/if}}
 
-    <h1>Восстановление пароля</h1>
-    <form action="/auth/reset" method="POST">
-      <p>Для восстановления пароля введите ваш email:</p>
-      <div class="input-field">
-        <input id="email" name="email" type="email" class="validate" required>
-        <label for="email">Email</label>
-        <span class="helper-text" data-error="Введите email"></span>
-      </div>
+    {{#if message}}
+      <p class="ui-alert-message">{{message}}</p>
+    {{else}}
+      <h1>Восстановление пароля</h1>
+      <form action="/auth/reset" method="POST">
+        <p>Для восстановления пароля введите ваш email:</p>
+        <div class="input-field">
+          <input id="email" name="email" type="email" class="validate" required>
+          <label for="email">Email</label>
+          <span class="helper-text" data-error="Введите email"></span>
+        </div>
 
-      <input type="hidden" name="_csrf" value="{{surf}}">
+        <input type="hidden" name="_csrf" value="{{surf}}">
 
-      <button class="auth-btn btn btn-primary" type="submit">Сбросить пароль</button>
-    </form>
+        <button class="auth-btn btn btn-primary" type="submit">Сбросить пароль</button>
+      </form>
+    {{/if}}
+
   </div>
 </div>
