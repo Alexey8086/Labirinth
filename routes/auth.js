@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs')
 const userSchema = require('../models/user')
 // Подключение библиотек для отправки писем по email
 const nodemailer = require('nodemailer')
-const sendgrid = require('nodemailer-sendgrid-transport')
+const mailgun = require('nodemailer-mailgun-transport')
 // Импорт api key из самописного конфига
 const KEYS = require('../keys')
 // Подключение объекта конфигурации email-письма
@@ -18,9 +18,14 @@ const regEmail = require('../emails/registration')
 const resetEmail = require('../emails/reset')
 const {registerValidators} = require('../utils/validators')
 
-const transporter = nodemailer.createTransport(sendgrid({
-  auth: {api_key: KEYS.SENDGRID_API_KEY}
-}))
+const authConfig = {
+  auth: {
+    api_key: KEYS.MAILGUN_API_KEY,
+    domain: KEYS.MAILGUN_DOMAIN
+  }
+}
+
+const transporter = nodemailer.createTransport(mailgun(authConfig))
 
 router.get('/login', async (req, res) => {
 
