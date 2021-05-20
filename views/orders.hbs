@@ -20,12 +20,17 @@
         <hr style="margin: 20px 0 15px 0;">
           <div class="order-price">
             <span>Цена:</span>
-            <b><span class="price">{{price}}</span></b>
+            <b class="b-price-container"><span class="price">{{price}}</span></b>
+            <b class="b-bnt-container"><button type="submit" form="delete-order" class="orders-delete-btn">удалить заказ</button></b>
+            <input form="delete-order" type="hidden" name="id" value="{{_id}}">
           </div>
       </div>
     {{/each}}
   </div>
 
+  <form id="delete-order" action="/orders/remove" method="POST" novalidate>
+    <input type="hidden" name="_csrf" value="{{surf}}">
+  </form>
 
 {{else}}
   <p style="text-align: center; font-size: 1.4rem;">Заказов пока нет</p>

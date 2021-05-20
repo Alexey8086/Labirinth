@@ -22,6 +22,16 @@ const kitCut = (text) => {
   return text
 }
 
+const normalizeDate = (date) => {
+  return new Intl.DateTimeFormat('ru-Ru', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(new Date(date))
+}
+
 // Функция, проверяющая является ли текущий пользователь админом
 async function userRole(userId) {
   try {
@@ -37,14 +47,14 @@ router.get('/', async (req, res) => {
 
   try {
     const notes = await Note.find().lean()
-
     const Articles = []
 
     notes.forEach(el => {
       Articles.push({
         title: clean(el.blocks[0].data.text),
         text: el.blocks[1] ? kitCut(el.blocks[1].data.text) : null,
-        id: el._id
+        id: el._id,
+        date: normalizeDate(new Date(el.time))
       })
     })
 

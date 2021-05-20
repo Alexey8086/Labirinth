@@ -366,6 +366,10 @@ body {
   text-align: center;
 }
 
+.custom-helper-text {
+  font-size: 0.9rem !important;
+}
+
 footer {
   margin-top: calc(100vh - 100vh*0.9);
 }

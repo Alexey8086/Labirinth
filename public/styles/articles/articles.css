@@ -384,6 +384,12 @@ body {
   color: black;
 }
 
+.main-container #blocks-grid-container > a > .item > h3 {
+  font-size: 1rem;
+  color: gray;
+  margin-bottom: 20px;
+}
+
 .main-container #blocks-grid-container > a > .item > p {
   font-size: 1.2rem;
   color: #242424;

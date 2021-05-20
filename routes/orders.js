@@ -10,19 +10,22 @@ router.get('/', auth, async (req, res) => {
       'user.userId': req.user._id
     }).populate('user.userId')
 
+    let ordersData = orders.map(o => {
+      return {
+        ...o._doc,
+        price: o.tickets.reduce((total, t) => {
+          return total += t.count * t.ticket.price
+        }, 0)
+      }
+    })
+
+    // console.log(ordersData[0].user.userId._id);
+
     res.render('orders', {
       style: '/orders/orders.css',
       isOrder: true,
       title: 'Заказы',
-      orders: orders.map(o => {
-        return {
-          ...o._doc,
-          price: o.tickets.reduce((total, t) => {
-            return total += t.count * t.ticket.price
-          }, 0)
-        }
-      })
-  
+      orders: ordersData,
     })
 
   } catch (error) {
@@ -57,6 +60,21 @@ router.post('/', auth, async (req, res) => {
   } catch (error) {
     console.log(error)
   }
+})
+
+router.post('/remove', auth, async (req, res) => {
+  
+  const {id} = req.body
+
+  try {
+    await Order.deleteOne({
+      _id: id
+    })
+    res.redirect('/orders')
+  } catch (error) {
+    console.log(error)
+  }
+
 })
 
 module.exports = router

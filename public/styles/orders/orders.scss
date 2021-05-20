@@ -45,9 +45,26 @@ body {
       display: flex;
       flex-direction: row;
 
-      .price {
-        margin-left: 15px;
+      .b-price-container {
+        margin-right: auto;
+
+        .price {
+          margin-left: 15px;
+        }
       }
+
+      .orders-delete-btn {
+        margin-left: auto;
+        box-sizing: border-box;
+        padding: 10px;
+        background-color: whitesmoke;
+        border: 0;
+        border-radius: 10px;
+        color: rgb(241, 108, 55);
+        font-size: 1.3rem;
+      }
+      
+
     }
   }
 }
