@@ -3,7 +3,7 @@
 <div style="width: 100%; position: absolute; top: 180px; display: flex; justify-content: center; box-sizing: border-box;">
   {{#if editFormError}}
   <p class="ui-alert-error">{{editFormError}}</p>
-{{/if}}
+  {{/if}}
 </div>
 
 <form class="edit_form_save" action="/tickets/edit" method="POST">
@@ -35,6 +35,16 @@
     <input id="option3" name="option3" type="text" class="validate" required min="5" value="{{ticket.option3}}">
     <label for="option3">Опция 3</label>
     <span class="helper-text" data-error="Введите опцию 3"></span>
+  </div>
+
+  <p>Продолжительноcть абонемента в месяцах:</p>
+  <div class="input-field">
+    <select name="duration">
+      <option value="{{ticket.duration}}" selected>{{ticket.duration}}</option>
+      <option value="1">1</option>
+      <option value="6">6</option>
+      <option value="12">12</option>
+    </select>
   </div>
 
   <input type="hidden" name="id" value="{{ticket._id}}">

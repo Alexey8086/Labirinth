@@ -65,7 +65,8 @@ router.post('/login', async (req, res) => {
           if (err) {
             throw err
           } else {
-            res.redirect('/profile')
+            if (candidate.role === 'admin') res.redirect('/adminPanel')
+            else res.redirect('/profile')
           }
         })
       } else {

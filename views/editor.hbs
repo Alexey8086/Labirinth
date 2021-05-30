@@ -8,6 +8,8 @@
 
   {{#if isWriter}}
     <button id="editor_save_btn" class="save_data_btn">Сохранить</button>
+  {{else}}
+    <a class="returnToArticles" href="/articles"><button class="return_btn">Вернуться к статьям</button></a>
   {{/if}}
 
   {{#if isDeletable}}

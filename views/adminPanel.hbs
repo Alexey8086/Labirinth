@@ -1,0 +1,105 @@
+<span class="panel-title">Панель администратора</span>
+
+<div class="info-container">
+    <div class="info-block">
+      <img src="/img/icons/user.svg" alt="Пользователи" style="width: 70px; height: 70px;">
+      <span class="data-from-db">{{usersLenght}}</span>
+      <p class="info-block_title">Всего пользователей</p>
+    </div>
+    <div class="info-block">
+      <img src="/img/icons/tickets.svg" alt="Абонементы" style="width: 70px; height: 70px;">
+      <span class="data-from-db">{{ticketsLenght}}</span>
+      <p class="info-block_title">Абонементов в наличии</p>
+    </div>
+    <div class="info-block">
+      <img src="/img/icons/orders.svg" alt="Заказы" style="width: 70px; height: 70px;">
+      <span class="data-from-db">{{ordersLenght}}</span>
+      <p class="info-block_title">Сделано заказов</p>
+    </div>
+    <div class="info-block" style="padding-top: 25px;">
+      <a href="/add"><img  src="/img/icons/plus-sign.svg" alt="Заказы" style="width: 150px; height: 150px;"></a>
+      <br>
+      <p class="info-block_title">Добавить новый абонемент</p>
+    </div>
+</div>
+
+<p id="table-block-title">Пользователи, зарегистрированные в системе</p>
+<table
+  id="table"
+  data-toggle="table"
+  data-pagination="true"
+  data-search="true">
+  <thead>
+    <tr>
+      <th data-sortable="true" data-field="name"></th>
+      <th data-field="email"></th>
+      <th data-field="role"></th>
+      <th data-field="ordersAmount"></th>
+    </tr>
+  </thead>
+</table>
+
+{{#if orders.length}}
+  <div class="blocks-grid-container" id="orders-block">
+    {{#each orders}}
+      {{#if confirmed}}
+        <div class="order-item">
+          <span style="color: #ebb121">
+            заказ:
+            <small>{{_id}}</small>
+          </span>
+          {{#if confirmed}}
+            <span>
+              Дата завершения заказа: <b style="color: rgb(212, 109, 126)" class="date">{{expirationDate}}</b>
+            </span>
+          {{/if}}
+          <span>Дата заказа: <span class="order-data date">{{date}}</span> </span>
+          <span>Имя: <span class="order-data">{{user.userId.name}} ({{user.userId.email}})</span> </span>
+          <ol style="padding-left: 22px; margin-bottom: 0;">
+            {{#each tickets}}
+              <li>
+                <span class="order-data">{{ticket.title}} (x<strong>{{count}}</strong>)</span>
+              </li>
+            {{/each}}
+          </ol>
+          <hr style="margin: 20px 0 15px 0;">
+            <div class="order-price">
+              <span>Цена:</span>
+              <b class="b-price-container"><span class="price">{{price}}</span></b>
+              <b class="b-bnt-container"><button class="orders-confirm-btn confirmed">подтверждён</button></b>
+            </div>
+        </div>
+      {{else}}
+        <div class="order-item">
+          <span style="color: #ebb121">
+            заказ:
+            <small>{{_id}}</small>
+          </span>
+          <span>Дата: <span class="order-data date">{{date}}</span> </span>
+          <span>Имя: <span class="order-data">{{user.userId.name}} ({{user.userId.email}})</span> </span>
+          <ol style="padding-left: 22px;">
+            {{#each tickets}}
+              <li>
+                <span class="order-data">{{ticket.title}} (x<strong>{{count}}</strong>)</span>
+              </li>
+            {{/each}}
+          </ol>
+          <hr style="margin: 20px 0 15px 0;">
+            <div class="order-price">
+              <span>Цена:</span>
+              <b class="b-price-container"><span class="price">{{price}}</span></b>
+              <b class="b-bnt-container"><button type="submit" form="confirm-order" class="orders-confirm-btn">подтвердить</button></b>
+              <input form="confirm-order" type="hidden" name="id" value="{{_id}}">
+            </div>
+        </div>
+      {{/if}}
+    {{/each}}
+  </div>
+
+  <form id="confirm-order" action="/adminPanel/confirm-order" method="POST" novalidate>
+    <input type="hidden" name="_csrf" value="{{surf}}">
+  </form>
+
+{{else}}
+  <p style="text-align: center; font-size: 1.4rem;">Заказов пока нет</p>
+{{/if}}

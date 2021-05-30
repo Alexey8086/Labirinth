@@ -7,17 +7,7 @@ const normalizePrice = require('../middleware/normalizePrice')
 const router = Router()
 const {validationResult} = require('express-validator')
 const {ticketValidators} = require('../utils/validators')
-
-// Функция, проверяющая является ли текущий пользователь админом
-async function userIsAdmin(userId) {
-  try {
-    const user = await User.findById(userId)
-    if (user.role === "admin") return user.role
-    else return null
-  } catch (e) {
-    console.log(e)
-  }
-}
+const mod = require('../utils/mod')
 
 // страница абонементов
 router.get('/', async (req, res) => {
@@ -58,7 +48,7 @@ router.get('/:id/edit', auth, async (req, res) => {
     const idCurrentUser = req.session.user._id
     // Если пользователь не является администратором,
     // то страница редактирования абонемента не откроется
-    let isAdmin = await userIsAdmin(idCurrentUser)
+    let isAdmin = await mod.userIsAdmin(idCurrentUser, User)
     if (!isAdmin) {
       return res.redirect('/tickets')
     }
@@ -90,7 +80,7 @@ router.post('/edit', auth, normalizePrice, ticketValidators, async (req, res) =>
     const {id} = req.body
     delete req.body.id
     const ticket = await Ticket.findById(id)
-    let isAdmin = await userIsAdmin(req.session.user._id)
+    let isAdmin = await mod.userIsAdmin(req.session.user._id, User)
 
     if (!isAdmin) {
       return res.redirect('/tickets')
@@ -114,17 +104,20 @@ router.post('/remove', auth, async (req, res) => {
   const {id} = req.body
   const userId = req.user._id.toString()
 
+  console.log("id----->", id)
+  console.log("userId----->", userId)
+
   try {
     // Если пользователь не является администратором,
     // то он не сможет удалить абонемент
-    let isAdmin = await userIsAdmin(userId)
+    let isAdmin = await mod.userIsAdmin(userId, User)
     if (!isAdmin) {
       return res.redirect('/tickets')
     }
-
+    console.log("isAdmin----->", isAdmin);
     await Ticket.deleteOne({
       _id: id,
-      userId
+      // userId: userId
     })
     res.redirect('/tickets')
   } catch (error) {

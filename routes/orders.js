@@ -3,14 +3,18 @@ const Order = require('../models/order')
   //middleware, который закрывает доступ к странице для неавторизованных пользователей
 const auth = require('../middleware/auth')
 const router = Router()
+const mod = require('../utils/mod');
 
 router.get('/', auth, async (req, res) => {
+  mod.deleteExpiredOrder(Order)
+
   try {
     const orders = await Order.find({
       'user.userId': req.user._id
     }).populate('user.userId')
 
     let ordersData = orders.map(o => {
+      
       return {
         ...o._doc,
         price: o.tickets.reduce((total, t) => {
@@ -19,10 +23,8 @@ router.get('/', auth, async (req, res) => {
       }
     })
 
-    // console.log(ordersData[0].user.userId._id);
-
     res.render('orders', {
-      style: '/orders/orders.css',
+      style: 'orders/orders.css',
       isOrder: true,
       title: 'Заказы',
       orders: ordersData,

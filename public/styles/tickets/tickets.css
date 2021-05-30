@@ -633,4 +633,34 @@ footer {
     font-size: 18px;
   }
 }
+
+.ticket-row .duration {
+  display: block;
+  font-family: Roboto, sans-serif;
+  font-size: 36px;
+  font-style: italic;
+  margin-top: 50px;
+  color: #303030;
+}
+
+@media (max-width: 992px) {
+  .ticket-row .duration {
+    font-size: 30px;
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 992px) and (max-width: 786px) {
+  .ticket-row .duration {
+    font-size: 25px;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
+  .ticket-row .duration {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
 /*# sourceMappingURL=tickets.css.map */

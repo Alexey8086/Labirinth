@@ -30,7 +30,7 @@ if (container) {
     console.log(data)
     const Modal = $.modal({
       data: data[number],
-      width: '200px'
+      width: '350px'
     })
 
     return Modal

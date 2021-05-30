@@ -27,14 +27,31 @@
         </ul>
       </div>
 
+      <span class="duration">Продолжительность абонемента (в месяцах): <b style="color: #DC9797">{{duration}}</b></span>
+
       <div class="price">{{price}}</div>
     
       <div class="ticket__actions">
 
         {{#if @root.isAuth}}
-          <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{_id}}">
+          {{#isEqual @root.userRole 'client'}}
+            <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{_id}}">
             приобрести
-          </button>
+            </button>
+          {{/isEqual}}
+
+          {{#isEqual @root.userRole 'writer'}}
+            <button class="buy">
+              приобрести
+            </button>
+          {{/isEqual}}
+
+          {{#isEqual @root.userRole 'admin'}}
+            <button class="buy">
+              приобрести
+            </button>
+          {{/isEqual}}
+
         {{else}}
           <button type="button" class="buy" name="id" value="{{_id}}">
             <a href="/auth/login#login">приобрести</a>

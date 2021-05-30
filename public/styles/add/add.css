@@ -430,7 +430,7 @@ form .input-field input:focus {
   border-bottom: 2px solid #69c566;
 }
 
-form .input-field input {
+form .input-field input, form .input-field select {
   font-size: 30px;
   height: 70px;
   overflow: hidden;
@@ -441,7 +441,7 @@ form .input-field input {
 }
 
 @media (max-width: 576px) {
-  form .input-field input {
+  form .input-field input, form .input-field select {
     font-size: 1.3rem;
     height: 60px;
     padding-top: 20px;

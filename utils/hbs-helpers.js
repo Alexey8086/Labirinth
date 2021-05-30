@@ -15,5 +15,14 @@ module.exports = {
       return options.fn(this)
     }
     return options.inverse(this)
+  },
+
+  and () {
+    return Array.prototype.every.call(arguments, Boolean);
+  },
+
+  or () {
+    return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
   }
+
 }

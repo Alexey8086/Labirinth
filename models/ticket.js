@@ -21,6 +21,11 @@ const ticketSchema = new Schema({
     type: String,
     required: true
   },
+  duration: {
+    type: Number,
+    required: true,
+    default: 1
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'

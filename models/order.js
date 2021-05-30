@@ -1,6 +1,16 @@
 const {Schema, model} = require('mongoose')
 
 const orderSchema = new Schema({
+  confirmed: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  expirationDate: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
   tickets: [
     {
       ticket: {

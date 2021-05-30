@@ -1,5 +1,5 @@
 const {Router} = require('express')
-  // const { functions } = require('firebase')
+const User = require('../models/user')
 const Ticket = require('../models/ticket')
   // middleware, который закрывает доступ к странице для неавторизованных пользователей
 const auth = require('../middleware/auth')
@@ -7,11 +7,25 @@ const router = Router()
 
   // функция приведения объекта, полученного из бд, к валидному виду "плоского объекта" 
 function mapCardItems(card) {
-  return card.items.map(i => ({
-    ...i.ticketId._doc,
-    id: i.ticketId.id,
-    count: i.count
-  }))
+  obj = []
+
+  card.items.forEach(el => {
+    if (el.ticketId) {
+      obj.push({
+        ...el.ticketId._doc,
+        id: el.ticketId.id,
+        count: el.count
+      })
+    }
+  })
+
+  return obj
+
+  // return card.items.map(i => ({
+  //   ...i.ticketId._doc,
+  //   id: i.ticketId.id,
+  //   count: i.count
+  // }))
 }
 
   // функция вычисления общей стоимости всех товаров в корзине
@@ -48,19 +62,29 @@ router.delete('/remove/:id', auth, async (req, res) => {
 })
 
 router.get('/', auth, async(req, res) => {
-  const user = await req.user
+
+  const user = await User.findById(req.user._id)
+  if (user.role === 'client') {
+    const user = await req.user
     .populate('card.items.ticketId')
     .execPopulate()
 
-  const tickets = mapCardItems(user.card)
+    console.log("USER CARD---->", user.card);
+    const tickets = mapCardItems(user.card)
 
-  res.render('card', {
-    title: 'Корзина',
-    style: 'card/card.css',
-    isCard: true,
-    tickets: tickets,
-    price: computePrice(tickets)
-  })
+    res.render('card', {
+      title: 'Корзина',
+      style: 'card/card.css',
+      isCard: true,
+      tickets: tickets,
+      price: computePrice(tickets)
+    })
+  } else {
+    res.status(404)
+    res.redirect('/404')
+  }
+
+
 })
 
 module.exports = router

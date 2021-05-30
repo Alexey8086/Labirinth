@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const surf = require('csurf')
-const helmet = require('helmet')
 const compression = require('compression')
 const flash = require('connect-flash')
 const exphbs = require('express-handlebars')
@@ -22,6 +21,7 @@ const profileRoutes = require('./routes/profile')
 const editorRoutes = require('./routes/editor')
 const articlesRoutes = require('./routes/articles')
 const api_keysRoutes = require('./routes/api-keys')
+const adminPanelRoutes = require('./routes/adminPanel')
 
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
@@ -82,6 +82,7 @@ app.use('/orders', ordersRoutes)
 app.use('/profile', profileRoutes)
 app.use('/articles', articlesRoutes)
 
+app.use('/adminPanel', adminPanelRoutes)
 app.use('/editor', editorRoutes)
 app.use('/api', api_keysRoutes)
 

@@ -8,7 +8,12 @@
           заказ:
           <small>{{_id}}</small>
         </span>
-        <span>Дата: <span class="order-data date">{{date}}</span> </span>
+        {{#if confirmed}}
+          <span>
+            Дата завершения всех абонементов в заказе: <b style="color: rgb(11, 177, 66)" class="date">{{expirationDate}}</b>
+          </span>
+        {{/if}}
+        <span>Дата заказа: <span class="order-data date">{{date}}</span> </span>
         <span>Имя: <span class="order-data">{{user.userId.name}} ({{user.userId.email}})</span> </span>
         <ol style="padding-left: 22px;">
           {{#each tickets}}
@@ -21,16 +26,15 @@
           <div class="order-price">
             <span>Цена:</span>
             <b class="b-price-container"><span class="price">{{price}}</span></b>
-            <b class="b-bnt-container"><button type="submit" form="delete-order" class="orders-delete-btn">удалить заказ</button></b>
-            <input form="delete-order" type="hidden" name="id" value="{{_id}}">
+            {{#if confirmed}}
+              <b class="b-bnt-container"><button type="submit" class="order-btn order-confirmed">Заказ подтверждён</button></b>
+            {{else}}
+              <b class="b-bnt-container"><button type="submit" class="order-btn order-unconfirmed">В ожидании подтвеждения</button></b>
+            {{/if}}
           </div>
       </div>
     {{/each}}
   </div>
-
-  <form id="delete-order" action="/orders/remove" method="POST" novalidate>
-    <input type="hidden" name="_csrf" value="{{surf}}">
-  </form>
 
 {{else}}
   <p style="text-align: center; font-size: 1.4rem;">Заказов пока нет</p>
