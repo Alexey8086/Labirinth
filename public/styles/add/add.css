@@ -394,6 +394,15 @@ form {
   }
 }
 
+form .advanced-field {
+  margin-top: 50px;
+}
+
+form .advanced-field > p {
+  display: block;
+  font-size: 1.5rem;
+}
+
 form .input-field {
   position: relative;
   display: -webkit-box;

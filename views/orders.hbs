@@ -1,9 +1,25 @@
 <h1 class="orders-title">Мои заказы</h1>
 
+  <form id="order_cancel_form" action="/orders/cancelOrder" method="POST">
+    <input type="hidden" name="_csrf" value="{{@root.surf}}">
+  </form>
+
+  <form id="order_freeze_form" action="/orders/freezeOrder" method="POST">
+    <input type="hidden" name="_csrf" value="{{@root.surf}}">
+  </form>
+
 {{#if orders.length}}
   <div class="sat-order-container">
     {{#each orders}}
-      <div class="order-item">
+      {{#if daysBeforeEndFreeze}}
+        <span class="orderIsFrozen">
+          Заказ заморожен!
+          <br>
+          <small>Дней до окончания заморозки: <b>{{daysBeforeEndFreeze}}</b> </small>
+        </span>
+      {{/if}}
+      <div class="order-item {{#if daysBeforeEndFreeze}} block-opacity {{/if}}">
+
         <span style="color: #ebb121">
           заказ:
           <small>{{_id}}</small>
@@ -32,6 +48,15 @@
               <b class="b-bnt-container"><button type="submit" class="order-btn order-unconfirmed">В ожидании подтвеждения</button></b>
             {{/if}}
           </div>
+
+            {{#if confirmed}}
+              {{#unless wasFrozen}}
+                <button type="submit" class="order-btn-special blue-btn " form="order_freeze_form" name="id" value="{{_id}}">Заморозить заказ</button></b>
+              {{/unless}}
+            {{else}}
+              <button type="submit" class="order-btn-special red-btn " form="order_cancel_form" name="id" value="{{_id}}">Отменить заказ</button>
+            {{/if}}
+
       </div>
     {{/each}}
   </div>

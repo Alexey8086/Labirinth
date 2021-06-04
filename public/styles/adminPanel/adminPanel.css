@@ -435,12 +435,12 @@ body {
   }
 }
 
-#table-block-title {
+.table-block-title {
   font-size: 2.2rem !important;
 }
 
 @media (max-width: 576px) {
-  #table-block-title {
+  .table-block-title {
     font-size: 1.5rem !important;
   }
 }

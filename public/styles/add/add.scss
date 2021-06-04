@@ -79,6 +79,15 @@ form {
     }
   }
 
+  .advanced-field {
+    &>p {
+      display: block;
+      font-size: 1.5rem;
+    }
+
+    margin-top: 50px;
+  }
+
   .input-field {
     position: relative;
     display: flex;

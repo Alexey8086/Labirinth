@@ -116,14 +116,11 @@ router.post('/confirm-order', auth, async (req, res) => {
     try {
       const {id} = req.body
       delete req.body.id
-      console.log("ID---->", id);
 
       const order = await Order.findById(id)
       const days = orderMonthsDuration(order.tickets) * 30
       let expirationDate = new Date()
       expirationDate.setDate(expirationDate.getDate() + days)
-
-      console.log("ДАТА ОКОНЧАНИЯ ВСЕХ АБОНЕМЕНТОВ: ", expirationDate)
 
       Order.findByIdAndUpdate(id, {"confirmed": true, "expirationDate": expirationDate }, (err, result) => {
         if (err){

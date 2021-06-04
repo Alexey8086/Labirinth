@@ -8,7 +8,11 @@
 
 {{#each tickets}}
 <div class="ticket-row">
-  <div class="ticket">
+  {{#if ticketIsOver}}
+    <span class="ticketsIsOver">Абонементы в данной категории закончились!</span>
+  {{/if}}
+  
+  <div class="ticket {{#if ticketIsOver}} block-opacity {{/if}}">
       <div class="ticket__title">
         {{title}}
       </div>
@@ -27,7 +31,12 @@
         </ul>
       </div>
 
-      <span class="duration">Продолжительность абонемента (в месяцах): <b style="color: #DC9797">{{duration}}</b></span>
+      <div class="ticket_description">
+        <span class="ticket_description__title"><b>Описание абонемента:</b></span>
+        <span class="text_description">{{description}}</span>
+      </div>
+
+      <span class="duration"><b>Продолжительность абонемента (в месяцах): </b> <b style="color: #DC9797">{{duration}}</b></span>
 
       <div class="price">{{price}}</div>
     
@@ -35,9 +44,15 @@
 
         {{#if @root.isAuth}}
           {{#isEqual @root.userRole 'client'}}
-            <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{_id}}">
-            приобрести
-            </button>
+            {{#if ticketIsOver}}
+              <button class="buy">
+                приобрести
+              </button>
+            {{else}}
+              <button form="custom-form-buy-ticket" type="submit" class="buy" name="id" value="{{_id}}">
+                приобрести
+              </button>
+            {{/if}}
           {{/isEqual}}
 
           {{#isEqual @root.userRole 'writer'}}
@@ -64,19 +79,6 @@
           </div>
         {{/isEqual}}
 
-<!-- 
-        <pre>{{userId._id}} &nbsp; {{@root.userId}}</pre>
-
-        {{#isAdminId @root.userId}}
-        <p style="font-size: 2.2rem; color: orange; font-weight: 400;">This is working fine!</p>
-        {{/isAdminId}}
-
-        {{#if @root.isAuth}}
-          <div class="edit">
-            <a href="/tickets/{{_id}}/edit?allow=true">редактировать</a>
-          </div>
-        {{/if}}
--->
       </div>
   </div>
 </div>

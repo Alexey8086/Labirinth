@@ -23,13 +23,20 @@ router.get('/', async (req, res) => {
 
     const user = await User.findById(USER_ID)
 
+    const Tickets = []
+
+    tickets.forEach(el => {
+      el.ticketIsOver = (el.ticketsAmount == 0) ? true : false
+      Tickets.push(el)
+    })
+
     // Передача параметров в метод отрисовки страницы абонементы
     res.render('tickets', {
       style: '/tickets/tickets.css',
       title: 'Абонементы',
       isTickets: true,
       userRole: user ? user.role : null,
-      tickets
+      tickets: Tickets
     })
 
   } catch (error) {
@@ -57,6 +64,7 @@ router.get('/:id/edit', auth, async (req, res) => {
       style: '/add/add.css',
       title: `Редактировать ${ticket.title}`,
       ticket,
+      isAdd: true,
       editFormError: req.flash('editFormError')
     })
 

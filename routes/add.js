@@ -53,7 +53,9 @@ router.post('/', auth, ticketValidators, async (req, res) => {
         option1: req.body.option1,
         option2: req.body.option2,
         option3: req.body.option3,
-        duration: req.body.duration
+        description: req.body.description,
+        duration: req.body.duration,
+        ticketsAmount: req.body.ticketsAmount
       }
     })
   }
@@ -64,7 +66,9 @@ router.post('/', auth, ticketValidators, async (req, res) => {
     option1: req.body.option1,
     option2: req.body.option2,
     option3: req.body.option3,
+    description: req.body.description,
     duration: req.body.duration,
+    ticketsAmount: req.body.ticketsAmount,
     userId: req.user._id
   })
 

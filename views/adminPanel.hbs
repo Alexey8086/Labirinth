@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<p id="table-block-title">Пользователи, зарегистрированные в системе</p>
+<p class="table-block-title">Пользователи, зарегистрированные в системе:</p>
 <table
   id="table"
   data-toggle="table"
@@ -39,6 +39,7 @@
   </thead>
 </table>
 
+<p style="margin-top: 50px;" class="table-block-title">Заказы клиентов:</p>
 {{#if orders.length}}
   <div class="blocks-grid-container" id="orders-block">
     {{#each orders}}
@@ -101,5 +102,15 @@
   </form>
 
 {{else}}
-  <p style="text-align: center; font-size: 1.4rem;">Заказов пока нет</p>
+  <p style="
+    background-color:rgb(226, 210, 153);
+    margin: 50px 0 150px 0;
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 20px 0 20px 0;
+    font-weight: bold;
+    color: black;
+    ">
+      Заказов пока нет
+    </p>
 {{/if}}

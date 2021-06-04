@@ -21,10 +21,20 @@ const ticketSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true,
+    default: 'Описание абонемента отсутствует.'
+  },
   duration: {
     type: Number,
     required: true,
     default: 1
+  },
+  ticketsAmount: {
+    type: Number,
+    required: true,
+    default: 30
   },
   userId: {
     type: Schema.Types.ObjectId,

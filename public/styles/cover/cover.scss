@@ -424,8 +424,8 @@ header {
     text-align: center;
     font-size: $section-title-font;
     color: white;
-    padding-top: 7px;
-    height: 70px;
+    height: 80px;
+    padding: 7px 0 10px 0;
 
     @media (max-width: 576px) {
       font-size: $section-title-font/1.7;

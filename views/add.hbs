@@ -37,13 +37,26 @@
     <span class="helper-text" data-error="Введите опцию 3"></span>
   </div>
 
-  <p>Продолжительноcть абонемента в месяцах:</p>
-  <div class="input-field">
+
+  <div class="input-field advanced-field">
+    <p>Описание абонемента:</p>
+    <textarea name="description" class="form-control" id="text-description" rows="6"></textarea>
+  </div>
+
+
+  <div class="input-field advanced-field">
+    <p>Продолжительноcть абонемента в месяцах:</p>
     <select name="duration">
       <option value="1">1</option>
       <option value="6">6</option>
       <option value="12">12</option>
     </select>
+  </div>
+
+  <div class="input-field advanced-field">
+    <p>Количество абонеметов:</p>
+    <input id="ticketsAmount" name="ticketsAmount" type="number" class="validate" required min="1" value="">
+    <span class="helper-text" data-error="Введите количество абонементов"></span>
   </div>
 
   <input type="hidden" name="_csrf" value="{{surf}}">

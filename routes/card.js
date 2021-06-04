@@ -36,14 +36,37 @@ function computePrice(tickets) {
 }
 
 router.post('/add', auth, async(req, res) => {
-  const ticket = await Ticket.findById(req.body.id)
+  const id = req.body.id
+  const ticket = await Ticket.findById(id)
+  let ticketsAmount = ticket.ticketsAmount
+
+  if (ticketsAmount > 0) {
+    ticketsAmount--
+
+    Ticket.findByIdAndUpdate(id, {"ticketsAmount": ticketsAmount}, (err, result) => {
+      if (err) {console.log(err)}
+    })
+  }
+
   await req.user.addToCard(ticket)
   res.redirect('/card')
 })
 
 router.delete('/remove/:id', auth, async (req, res) => {
   try {
-    await req.user.removeFromCard(req.params.id)
+    const id = req.params.id
+    const ticket = await Ticket.findById(id)
+    let ticketsAmount = ticket.ticketsAmount
+
+    if (ticketsAmount >= 0) {
+      ticketsAmount++
+  
+      Ticket.findByIdAndUpdate(id, {"ticketsAmount": ticketsAmount}, (err, result) => {
+        if (err) {console.log(err)}
+      })
+    }
+
+    await req.user.removeFromCard(id)
     const user = await req.user
       .populate('card.items.ticketId')
       .execPopulate()
@@ -69,7 +92,23 @@ router.get('/', auth, async(req, res) => {
     .populate('card.items.ticketId')
     .execPopulate()
 
-    console.log("USER CARD---->", user.card);
+    console.log("USER CARD---->", user.card)
+
+    // Елсли абонемента больше не существует, то он удаляется из корзины
+    user.card.items.forEach(async el => {
+      const isTicketExist = await Ticket.findById(el.ticketId)
+
+      // Удаляем абонемент из корзины
+      if (!isTicketExist) {
+        let cardItemsArr = user.card.items.filter(e => {
+          return  e.ticketId !== el.ticketId
+        })
+
+        user.card.items = cardItemsArr
+        user.save()
+      }
+    })
+
     const tickets = mapCardItems(user.card)
 
     res.render('card', {
@@ -79,6 +118,7 @@ router.get('/', auth, async(req, res) => {
       tickets: tickets,
       price: computePrice(tickets)
     })
+    
   } else {
     res.status(404)
     res.redirect('/404')

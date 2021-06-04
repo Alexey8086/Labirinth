@@ -6,6 +6,15 @@ const orderSchema = new Schema({
     default: false,
     required: true
   },
+  wasFrozen: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  freezeEndDate: {
+    type: Date,
+    default: null,
+  },
   expirationDate: {
     type: Date,
     default: Date.now,

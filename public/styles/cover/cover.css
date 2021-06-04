@@ -916,8 +916,8 @@ header #header__title p {
   text-align: center;
   font-size: 50px;
   color: white;
-  padding-top: 7px;
-  height: 70px;
+  height: 80px;
+  padding: 7px 0 10px 0;
 }
 
 @media (max-width: 576px) {

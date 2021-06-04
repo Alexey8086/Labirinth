@@ -430,7 +430,7 @@ footer {
 
 @media (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
   .ticket-row > .ticket > .ticket__title {
-    font-size: 18px;
+    font-size: 25px;
   }
 }
 
@@ -466,7 +466,7 @@ footer {
 
 @media (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
   .ticket-row > .ticket > .ticket__possibilities > ul > li {
-    font-size: 12px;
+    font-size: 18px;
     margin-top: 10px;
   }
 }
@@ -634,33 +634,122 @@ footer {
   }
 }
 
-.ticket-row .duration {
+.ticket-row > .ticket .ticket_description > .ticket_description__title {
   display: block;
   font-family: Roboto, sans-serif;
   font-size: 36px;
-  font-style: italic;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: #303030;
+}
+
+@media (max-width: 992px) {
+  .ticket-row > .ticket .ticket_description > .ticket_description__title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 992px) and (max-width: 786px) {
+  .ticket-row > .ticket .ticket_description > .ticket_description__title {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
+  .ticket-row > .ticket .ticket_description > .ticket_description__title {
+    font-size: 18px;
+  }
+}
+
+.ticket-row > .ticket .ticket_description > .text_description {
+  font-size: 1.3rem;
+  color: #3b3b3b;
+}
+
+@media (max-width: 992px) {
+  .ticket-row > .ticket .ticket_description > .text_description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) and (max-width: 786px) {
+  .ticket-row > .ticket .ticket_description > .text_description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
+  .ticket-row > .ticket .ticket_description > .text_description {
+    font-size: 0.7rem;
+  }
+}
+
+.ticket-row > .ticket .duration {
+  display: block;
+  font-family: Roboto, sans-serif;
+  font-size: 36px;
   margin-top: 50px;
   color: #303030;
 }
 
 @media (max-width: 992px) {
-  .ticket-row .duration {
+  .ticket-row > .ticket .duration {
     font-size: 30px;
     margin-top: 25px;
   }
 }
 
 @media (max-width: 992px) and (max-width: 786px) {
-  .ticket-row .duration {
+  .ticket-row > .ticket .duration {
     font-size: 25px;
     margin-top: 15px;
   }
 }
 
 @media (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
-  .ticket-row .duration {
+  .ticket-row > .ticket .duration {
     font-size: 12px;
     margin-top: 10px;
   }
+}
+
+.ticketsIsOver {
+  text-align: center;
+  width: 830px;
+  position: relative;
+  top: 450px;
+  color: #ee5c22;
+  font-weight: bold;
+  font-size: 3.2rem;
+  z-index: 100;
+}
+
+@media (max-width: 1200px) {
+  .ticketsIsOver {
+    width: 830px;
+  }
+}
+
+@media (max-width: 1200px) and (max-width: 992px) {
+  .ticketsIsOver {
+    width: 730px;
+  }
+}
+
+@media (max-width: 1200px) and (max-width: 992px) and (max-width: 786px) {
+  .ticketsIsOver {
+    width: 530px;
+  }
+}
+
+@media (max-width: 1200px) and (max-width: 992px) and (max-width: 786px) and (max-width: 576px) {
+  .ticketsIsOver {
+    width: 84vw;
+  }
+}
+
+.block-opacity {
+  -webkit-filter: opacity(30%);
+          filter: opacity(30%);
 }
 /*# sourceMappingURL=tickets.css.map */

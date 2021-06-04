@@ -11,6 +11,8 @@ const duplicationEmailMsg = 'Пользователь с таким email уже
 const titleMsg = 'Длина заголовка должна быть не меннее 3 и неболее 35 символов!'
 const priceMsg = 'Введено некорректное значение цены!'
 const optionMsg = 'Значение опции должно состоять не менее чем из 4 и не более чем из 45 символов!'
+const descriptionMsg = 'Описание абонемента должно содержать от 4 из 350 символов!'
+const ticketsAmountMsg = 'Введено некорректное значение количества абонементов!'
 // const durationMsg = 'Продолжительность абонемента должно быть целым неотрицательным числом!'
 
 // Экспорт модуля валидаторов
@@ -55,5 +57,7 @@ module.exports.ticketValidators = [
   body('option1', optionMsg).isLength({min: 4, max: 45}),
   body('option2', optionMsg).isLength({min: 4, max: 45}),
   body('option3', optionMsg).isLength({min: 4, max: 45}),
+  body('description', descriptionMsg).isLength({min: 4, max: 350}),
+  body('ticketsAmount', ticketsAmountMsg).isNumeric().isLength({min: 1, max: 7})
   // body('duration', durationMsg).isNumeric()
 ]

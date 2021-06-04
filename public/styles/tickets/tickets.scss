@@ -39,7 +39,8 @@ footer {
   }
 
   &>.ticket {
-    background-color: white;
+    background-color: white;;
+
     width: 1000px;
     min-height: 600px;
     border-radius: 3%;
@@ -47,7 +48,7 @@ footer {
     padding: 50px;
     padding-bottom: 0;
     margin-bottom: 50px;
-    
+
     @media (max-width: 1200px) {
       width: 850px;
 
@@ -83,7 +84,7 @@ footer {
           font-size: 30px;
 
           @media (max-width: 576px) {
-            font-size: 18px;
+            font-size: 25px;
           }
         }
       }
@@ -113,7 +114,7 @@ footer {
             margin-top: 15px;
   
             @media (max-width: 576px) {
-              font-size: 12px;
+              font-size: 18px;
               margin-top: 10px;
             }
           }
@@ -250,29 +251,102 @@ footer {
         }
       }
     }
-  }
 
-  .duration {
-    display: block;
-    font-family: Roboto, sans-serif;
-    font-size: 36px;
-    font-style: italic;
-    margin-top: 50px;
-    color: #303030;
+    .ticket_description {
+
+  
+      &>.ticket_description__title {
+        display: block;
+        font-family: Roboto, sans-serif;
+        font-size: 36px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        color: #303030;
+
+        @media (max-width: 992px) {
+          font-size: 30px;
+  
+          @media (max-width: 786px) {
+            font-size: 25px;
+  
+            @media (max-width: 576px) {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      &>.text_description {
+        font-size: 1.3rem;
+        color: #3b3b3b;
+
+        @media (max-width: 992px) {
+          font-size: 0.9rem;
+
+          @media (max-width: 786px) {
+            font-size: 0.8rem;
+  
+            @media (max-width: 576px) {
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+
+    .duration {
+      display: block;
+      font-family: Roboto, sans-serif;
+      font-size: 36px;
+      margin-top: 50px;
+      color: #303030;
+  
+      @media (max-width: 992px) {
+        font-size: 30px;
+        margin-top: 25px;
+  
+        @media (max-width: 786px) {
+          font-size: 25px;
+          margin-top: 15px;
+  
+          @media (max-width: 576px) {
+            font-size: 12px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.ticketsIsOver {
+  text-align: center;
+  width: 830px;
+  position: relative;
+  top: 450px;
+  color: rgb(238, 92, 34);
+  font-weight: bold;
+  font-size: 3.2rem;
+  z-index: 100;
+
+  @media (max-width: 1200px) {
+    width: 830px;
 
     @media (max-width: 992px) {
-      font-size: 30px;
-      margin-top: 25px;
+      width: 730px;
 
       @media (max-width: 786px) {
-        font-size: 25px;
-        margin-top: 15px;
+        width: 530px;
 
         @media (max-width: 576px) {
-          font-size: 12px;
-          margin-top: 10px;
+          width: 84vw;
         }
       }
     }
   }
+}
+
+.block-opacity {
+  filter: opacity(30%);
 }
