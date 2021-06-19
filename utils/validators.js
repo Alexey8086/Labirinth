@@ -17,7 +17,7 @@ const ticketsAmountMsg = 'Введено некорректное значени
 
 // Экспорт модуля валидаторов
 module.exports.registerValidators = [
-  // Валидация email
+  // Валидация и проверка на существование email в системе
   body('email', emailMsg)
     .isEmail()
     .custom( async (value, {req}) => {
@@ -26,7 +26,6 @@ module.exports.registerValidators = [
         if (user) {
           return Promise.reject(duplicationEmailMsg)
         }
-        
       } catch (e) {
         console.log(e)
       }
@@ -38,6 +37,7 @@ module.exports.registerValidators = [
     .isStrongPassword({maxLength: 40})
     .trim(),
 
+  // Сравнение значений введённых в поле "пароль" и в поле "повторите пароль"
   body('confirm')
     .custom((value, {req}) => {
       if (value !== req.body.password) {

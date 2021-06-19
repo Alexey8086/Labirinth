@@ -89,11 +89,12 @@ router.post('/register', registerValidators, async (req, res) => {
     const {email, password, name} = req.body
     
     const errors = validationResult(req)
+
+    // Проверка на наличие ошибок при валидации значений формы регистрации
     if (!errors.isEmpty()) {
       req.flash('registerError', errors.array()[0].msg)
       return res.status(422).redirect('/auth/login#register')
     }
-
 
     // шифрования пароля
     const hashPassword = await bcrypt.hash(password, 10)
@@ -103,8 +104,13 @@ router.post('/register', registerValidators, async (req, res) => {
       password: hashPassword,
       card: {items: []}
     })
+    // Сохранение данных нового пользователя в базу данных
     await user.save()
+
+    // Переадресация на страницу входа в личный кабинет
     res.redirect('/auth/login#login')
+
+    // Отправка сообщения об успешной регистрации на почту
     await transporter.sendMail(regEmail(email))
 
   } catch (e) {
@@ -161,7 +167,7 @@ router.post('/reset', (req, res) => {
       }
 
       const token = buffer.toString('hex')
-      const candidate = await userSchema.findOne({email: req.body.email})
+      const candidate = await userSchema.findOne({email: req.body.email.toLowerCase()})
 
       if (candidate) {
         // Инициализация токена для сброса пароля у пользователя

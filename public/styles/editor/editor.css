@@ -91,8 +91,6 @@ nav {
 #sm-container-sidebar {
   display: block;
   background-color: rgba(24, 25, 29, 0.95);
-  -webkit-box-shadow: 3px 0px 10px 2px #09090a;
-          box-shadow: 3px 0px 10px 2px #09090a;
   position: fixed;
   top: 0;
   left: -35vw;
@@ -347,6 +345,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding-bottom: 50px;
 }
 
 .main-container .editor-container {

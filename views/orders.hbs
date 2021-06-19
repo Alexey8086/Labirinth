@@ -1,7 +1,11 @@
 <h1 class="orders-title">Мои заказы</h1>
 
   <form id="order_cancel_form" action="/orders/cancelOrder" method="POST">
-    <input type="hidden" name="_csrf" value="{{@root.surf}}">
+    <input
+      type="hidden"
+      name="_csrf"
+      value="{{@root.surf}}"
+    >
   </form>
 
   <form id="order_freeze_form" action="/orders/freezeOrder" method="POST">
@@ -9,6 +13,11 @@
   </form>
 
 {{#if orders.length}}
+
+<h3 class="orders-info_unconfirmed">Для подтвеждения заказа требуется оплатить его в фитнес-центре «Лабиринт».</h3>
+<h3 class="orders-info_confirmed">После подтвеждения заказа его уже нельзя отменить.</h3>
+<h3 class="orders-info_frozen">У каждого заказа есть одна возможность заморозки сроком на 30 дней.</h3>
+
   <div class="sat-order-container">
     {{#each orders}}
       {{#if daysBeforeEndFreeze}}

@@ -87,8 +87,6 @@
 #sm-container-sidebar {
   display: block;
   background-color: rgba(24, 25, 29, 0.95);
-  -webkit-box-shadow: 3px 0px 10px 2px #09090a;
-          box-shadow: 3px 0px 10px 2px #09090a;
   position: fixed;
   top: 0;
   left: -35vw;
@@ -334,6 +332,24 @@ body {
 .orders-title {
   text-align: center;
   margin: 45px 0 45px 0;
+}
+
+.orders-info_unconfirmed {
+  text-align: center;
+  margin: 45px 0 10px 0;
+  color: #f16c37;
+}
+
+.orders-info_confirmed {
+  text-align: center;
+  margin: 0 0 10px 0;
+  color: #0bb142;
+}
+
+.orders-info_frozen {
+  text-align: center;
+  margin: 0px 0 45px 0;
+  color: #229cee;
 }
 
 .sat-order-container {

@@ -92,8 +92,6 @@ nav {
 #sm-container-sidebar {
   display: block;
   background-color: rgba(24, 25, 29, 0.95);
-  -webkit-box-shadow: 3px 0px 10px 2px #09090a;
-          box-shadow: 3px 0px 10px 2px #09090a;
   position: fixed;
   top: 0;
   left: -35vw;
@@ -340,6 +338,7 @@ body {
   padding-top: 50px;
   padding-left: 80px;
   padding-right: 80px;
+  padding-bottom: 50px;
 }
 
 .main-container h1 {
@@ -348,7 +347,7 @@ body {
   margin-bottom: 50px;
 }
 
-.main-container #blocks-grid-container {
+.main-container > #blocks-grid-container {
   background-color: transparent;
   /* #18191d  3d3a78 */
   width: 100%;
@@ -360,16 +359,24 @@ body {
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   /* Неявный грид */
   grid-auto-rows: 150px;
-  grid-gap: 30px;
+  grid-gap: 70px;
 }
 
-.main-container #blocks-grid-container > a {
+@media (max-width: 1220px) {
+  .main-container > #blocks-grid-container {
+    -webkit-column-gap: 70px;
+            column-gap: 70px;
+    row-gap: 90px;
+  }
+}
+
+.main-container > #blocks-grid-container > a {
   display: block;
   text-decoration: none;
   color: transparent;
 }
 
-.main-container #blocks-grid-container > a > .item {
+.main-container > #blocks-grid-container > a > .item {
   background-color: white;
   border-radius: 10px;
   -webkit-box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
@@ -379,25 +386,31 @@ body {
   padding: 10px;
 }
 
-.main-container #blocks-grid-container > a > .item > h1 {
+.main-container > #blocks-grid-container > a > .item > h1 {
   font-size: 1.7rem;
   color: black;
 }
 
-.main-container #blocks-grid-container > a > .item > h3 {
+.main-container > #blocks-grid-container > a > .item > h3 {
   font-size: 1rem;
   color: gray;
   margin-bottom: 20px;
 }
 
-.main-container #blocks-grid-container > a > .item > p {
+.main-container > #blocks-grid-container > a > .item > p {
   font-size: 1.2rem;
   color: #242424;
 }
 
-.main-container #blocks-grid-container > a > .item:hover {
-  background-color: #c78e9a;
+.main-container > #blocks-grid-container > a > .item:hover {
+  background-color: #ebb3bc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+}
+
+@media (max-width: 1220px) {
+  footer {
+    margin-top: 150px;
+  }
 }
 /*# sourceMappingURL=articles.css.map */

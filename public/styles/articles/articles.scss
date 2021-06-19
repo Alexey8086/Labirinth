@@ -20,6 +20,7 @@ body {
   padding-top: 50px;
   padding-left: 80px;
   padding-right: 80px;
+  padding-bottom: 50px;
 
   h1 {
     display: block;
@@ -27,7 +28,7 @@ body {
     margin-bottom: 50px;
   }
 
-  #blocks-grid-container {
+  &>#blocks-grid-container {
     background-color: transparent; /* #18191d  3d3a78 */
     width: 100%;
     min-height: 500px;
@@ -36,7 +37,12 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     /* Неявный грид */
     grid-auto-rows: 150px;
-    grid-gap: 30px;
+    grid-gap: 70px;
+
+    @media (max-width: 1220px) {
+      column-gap: 70px;
+      row-gap: 90px;
+    }
   
     &> a {
       display: block;
@@ -68,7 +74,7 @@ body {
         }
   
         &:hover {
-          background-color: rgb(199, 142, 154);
+          background-color: rgb(235, 179, 188);
           transition: 0.4s;
         }
       }
@@ -76,3 +82,9 @@ body {
   }
 }
 
+footer {
+
+  @media (max-width: 1220px) {
+    margin-top: 150px;
+  }
+}

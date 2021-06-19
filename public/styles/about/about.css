@@ -87,8 +87,6 @@
 #sm-container-sidebar {
   display: block;
   background-color: rgba(24, 25, 29, 0.95);
-  -webkit-box-shadow: 3px 0px 10px 2px #09090a;
-          box-shadow: 3px 0px 10px 2px #09090a;
   position: fixed;
   top: 0;
   left: -35vw;
@@ -344,7 +342,7 @@ body {
 @media (max-width: 1400px) {
   #about-container {
     max-width: none;
-    width: 100vw;
+    width: 100%;
     margin: 0;
     padding: 0;
     margin-right: 0;
