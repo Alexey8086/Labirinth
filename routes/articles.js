@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
 
     res.render('articles', {
       style: '/articles/articles.css',
-      title: 'Главная',
+      title: 'Статьи',
       isArticles: true,
       Articles
     })
