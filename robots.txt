@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+Disallow: /card
+Sitemap: http://Labyrinth_Fit/sitemap.xml
